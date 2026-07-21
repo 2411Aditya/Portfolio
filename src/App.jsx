@@ -1,0 +1,33 @@
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Experience from './components/Experience';
+import Certifications from './components/Certifications';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+
+import CustomCursor from './components/CustomCursor';
+import Preloader from './components/Preloader';
+
+function App() {
+  return (
+    <div className="bg-bg-dark text-text-main selection:bg-[#e50914]/30 font-sans antialiased overflow-x-hidden cursor-none">
+      <CustomCursor />
+      <Preloader />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Certifications />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+export default App;

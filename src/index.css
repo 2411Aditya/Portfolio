@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --color-bg-dark: #141414;
+    --color-text-main: #ffffff;
+    --color-text-muted: #a3a3a3;
+    --color-accent: #e50914;
+    --color-grid-line: rgba(255, 255, 255, 0.02);
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-hover: rgba(255, 255, 255, 0.3);
+  }
+
+  [data-theme="light"] {
+    color-scheme: dark;
+    --color-bg-dark: #181818;
+    --color-text-main: #f5f5f5;
+    --color-text-muted: #a3a3a3;
+    --color-accent: #e50914;
+    --color-grid-line: rgba(255, 255, 255, 0.02);
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-hover: rgba(255, 255, 255, 0.3);
+  }
+}
+
+@theme {
+  --color-bg-dark: var(--color-bg-dark);
+  --color-text-main: var(--color-text-main);
+  --color-text-muted: var(--color-text-muted);
+  --color-accent: var(--color-accent);
+  --color-grid-line: var(--color-grid-line);
+  --color-border-base: var(--color-border);
+  --color-border-hover: var(--color-border-hover);
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
+    
+    /* Netflix Subtle Radial Glow */
+    background-image: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.05) 0%, transparent 75%);
+  }
+  
+  ::selection {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+  }
+}
+
+@layer utilities {
+  .text-huge {
+    font-size: clamp(3rem, 10vw, 8rem);
+    line-height: 0.9;
+  }
+  .text-large {
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.1;
+  }
+  .text-medium {
+    font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+    line-height: 1.4;
+  }
+  .text-small {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+  
+  /* Netflix Play Button */
+  .btn-play {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.8rem 2rem;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-play:hover {
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+
+  /* Netflix Info Button */
+  .btn-info {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.8rem 2rem;
+    background-color: rgba(109, 109, 110, 0.7);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-info:hover {
+    background-color: rgba(109, 109, 110, 0.4);
+  }
+}
+
+/* Custom Netflix Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
