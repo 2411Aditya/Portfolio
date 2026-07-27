@@ -1,11 +1,11 @@
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+﻿import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="py-16 px-[1.5rem] md:px-[4rem] border-t border-white/5 bg-[#141414] relative z-10">
+    <footer className="py-16 px-[1.5rem] md:px-[4rem] border-t border-white/5 bg-[#141414]/85 relative z-10">
       <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="text-xs text-white/40 font-semibold font-sans">
-          © {new Date().getFullYear()} Aditya Kulkarni. All rights reserved.
+          Â© {new Date().getFullYear()} Aditya Kulkarni. All rights reserved.
         </div>
         
         <div className="flex gap-6">
@@ -22,3 +22,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

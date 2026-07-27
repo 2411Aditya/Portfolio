@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-24 px-[1.5rem] md:px-[4rem] bg-[#141414] border-t border-white/5">
+    <section id="experience" className="py-24 px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">
       <div className="max-w-[1600px] mx-auto w-full">
         
         {/* Experience Section */}
@@ -24,7 +24,7 @@ const Experience = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-[#181818] border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300 grid grid-cols-1 md:grid-cols-12 gap-6 items-start"
+            className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300 grid grid-cols-1 md:grid-cols-12 gap-6 items-start"
           >
             <div className="md:col-span-3">
               <h3 className="text-xl font-display font-extrabold text-white uppercase tracking-tight">Parallel Learning</h3>
@@ -59,7 +59,7 @@ const Experience = () => {
           {/* Card 1 */}
           <motion.div 
             whileHover={{ scale: 1.02 }}
-            className="bg-[#181818] border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300 flex flex-col justify-between"
+            className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <h3 className="text-xl font-display font-extrabold text-white uppercase mb-4 tracking-tight">B.E. in AI & DS</h3>
@@ -76,7 +76,7 @@ const Experience = () => {
           {/* Card 2 */}
           <motion.div 
             whileHover={{ scale: 1.02 }}
-            className="bg-[#181818] border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300 flex flex-col justify-between"
+            className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <h3 className="text-xl font-display font-extrabold text-white uppercase mb-4 tracking-tight">12th Grade</h3>
@@ -93,7 +93,7 @@ const Experience = () => {
           {/* Card 3 */}
           <motion.div 
             whileHover={{ scale: 1.02 }}
-            className="bg-[#181818] border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300 flex flex-col justify-between"
+            className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <h3 className="text-xl font-display font-extrabold text-white uppercase mb-4 tracking-tight">10th Grade</h3>
@@ -114,3 +114,4 @@ const Experience = () => {
 };
 
 export default Experience;
+

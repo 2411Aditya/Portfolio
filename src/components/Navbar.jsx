@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 const Navbar = () => {
@@ -18,7 +18,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-colors duration-300 px-[1.5rem] md:px-[4rem] ${isScrolled ? 'bg-[#141414] shadow-md border-b border-white/5' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 w-full z-50 transition-colors duration-300 px-[1.5rem] md:px-[4rem] ${isScrolled ? 'bg-[#141414]/85 shadow-md border-b border-white/5' : 'bg-transparent'}`}>
       <div className="max-w-[1600px] mx-auto py-5 flex justify-between items-center text-text-main">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
@@ -48,3 +48,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

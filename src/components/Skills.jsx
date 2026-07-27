@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 
 const Skills = () => {
   const skillCategories = [
@@ -11,7 +11,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414] border-t border-white/5">
+    <section id="skills" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">
       <div className="max-w-[1600px] mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,7 +34,7 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05 }}
-              className="bg-[#181818] border border-white/5 p-8 rounded hover:border-[#e50914]/50 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(229,9,20,0.08)] group"
+              className="bg-[#181818]/85 border border-white/5 p-8 rounded hover:border-[#e50914]/50 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(229,9,20,0.08)] group"
             >
               <h3 className="text-lg font-display font-extrabold text-white uppercase mb-4 tracking-tight group-hover:text-[#e50914] transition-colors duration-200">
                 {category.title}
@@ -51,3 +51,4 @@ const Skills = () => {
 };
 
 export default Skills;
+

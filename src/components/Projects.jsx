@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
 
 const Projects = () => {
@@ -24,7 +24,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414] border-t border-white/5">
+    <section id="projects" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">
       <div className="max-w-[1600px] mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -48,7 +48,7 @@ const Projects = () => {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05 }}
               whileHover={{ scale: 1.03, y: -5 }}
-              className="bg-[#181818] border border-white/5 rounded-md overflow-hidden flex flex-col justify-between h-full hover:shadow-[0_12px_40px_rgba(229,9,20,0.1)] transition-all duration-300 group cursor-default"
+              className="bg-[#181818]/85 border border-white/5 rounded-md overflow-hidden flex flex-col justify-between h-full hover:shadow-[0_12px_40px_rgba(229,9,20,0.1)] transition-all duration-300 group cursor-default"
             >
               {/* Fake Video Thumbnail placeholder with tech icons */}
               <div className="h-[180px] w-full bg-gradient-to-br from-[#2f2f2f] to-[#1f1f1f] relative flex items-center justify-center p-6 border-b border-white/5 overflow-hidden">
@@ -82,7 +82,7 @@ const Projects = () => {
 
                 <div className="flex flex-wrap gap-2 text-[10px] text-white/50 uppercase font-sans font-bold pt-4 border-t border-white/5">
                   {project.techStack.map((tech, i) => (
-                    <span key={i} className="after:content-['•'] after:ml-2 last:after:content-none">{tech}</span>
+                    <span key={i} className="after:content-['â€¢'] after:ml-2 last:after:content-none">{tech}</span>
                   ))}
                 </div>
               </div>
@@ -95,3 +95,4 @@ const Projects = () => {
 };
 
 export default Projects;
+

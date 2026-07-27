@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 
 const Certifications = () => {
   const certifications = [
@@ -8,7 +8,7 @@ const Certifications = () => {
   ];
 
   return (
-    <section id="certifications" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414] border-t border-white/5">
+    <section id="certifications" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">
       <div className="max-w-[1600px] mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,21 +27,21 @@ const Certifications = () => {
         <div className="mb-24">
           <h3 className="text-xl font-display font-extrabold text-white uppercase tracking-wider mb-8">Positions of Responsibility</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div whileHover={{ y: -5 }} className="bg-[#181818] border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
+            <motion.div whileHover={{ y: -5 }} className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
               <h4 className="text-lg font-display font-extrabold text-white mb-2 uppercase tracking-tight">Treasurer</h4>
               <div className="text-xs font-bold text-blue-400 mb-4 tracking-wider">TEAM SANSKRITI</div>
               <p className="text-[#a3a3a3] font-sans text-sm leading-relaxed">
                 Oversaw financial planning and budget management for college cultural initiatives.
               </p>
             </motion.div>
-            <motion.div whileHover={{ y: -5 }} className="bg-[#181818] border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
+            <motion.div whileHover={{ y: -5 }} className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
               <h4 className="text-lg font-display font-extrabold text-white mb-2 uppercase tracking-tight">Management Team</h4>
               <div className="text-xs font-bold text-green-400 mb-4 tracking-wider">TEAM DEVKRAFT</div>
               <p className="text-[#a3a3a3] font-sans text-sm leading-relaxed">
                 Organized large-scale technical events, focusing on logistics and team coordination.
               </p>
             </motion.div>
-            <motion.div whileHover={{ y: -5 }} className="bg-[#181818] border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
+            <motion.div whileHover={{ y: -5 }} className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
               <h4 className="text-lg font-display font-extrabold text-white mb-2 uppercase tracking-tight">Coding Member</h4>
               <div className="text-xs font-bold text-purple-400 mb-4 tracking-wider">TEAM AIRAWAT</div>
               <p className="text-[#a3a3a3] font-sans text-sm leading-relaxed">
@@ -63,7 +63,7 @@ const Certifications = () => {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.05 }}
                 whileHover={{ scale: 1.02 }}
-                className="group border border-white/5 p-8 bg-[#181818] rounded-md hover:border-[#e50914]/40 transition-all duration-300 flex flex-col justify-between"
+                className="group border border-white/5 p-8 bg-[#181818]/85 rounded-md hover:border-[#e50914]/40 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   <div className="text-xs font-bold text-[#e50914] uppercase tracking-wider mb-3">{cert.status}</div>
@@ -83,3 +83,4 @@ const Certifications = () => {
 };
 
 export default Certifications;
+

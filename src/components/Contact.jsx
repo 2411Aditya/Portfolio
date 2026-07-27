@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 
 const Contact = () => {
   return (
-    <section id="contact" className="relative px-[1.5rem] md:px-[4rem] py-32 bg-[#141414] border-t border-white/5 flex flex-col justify-center items-center">
+    <section id="contact" className="relative px-[1.5rem] md:px-[4rem] py-32 bg-[#141414]/85 border-t border-white/5 flex flex-col justify-center items-center">
       <div className="max-w-[1600px] mx-auto w-full text-center flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -44,3 +44,4 @@ const Contact = () => {
 };
 
 export default Contact;
+
