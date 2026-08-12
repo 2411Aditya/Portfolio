@@ -4,11 +4,11 @@
     "lastName": "KULKARNI",
     "titleTag": "B.E. AI & DS '26",
     "roles": [
-      "AI Engineer",
-      "ML Specialist",
-      "Full-Stack Developer"
+      "AI & Data Science Engineer",
+      "Fullstack Developer",
+      "ML Specialist"
     ],
-    "bio": "Artificial Intelligence & Data Science Engineer specializing in AI-native tools, RAG pipelines, LLM fine-tuning, and production-ready systems. Driven by creating robust architectures that translate machine learning into enterprise-grade applications.",
+    "bio": "Artificial Intelligence & Data Science engineer with hands-on experience building fullstack applications, scalable Node.js/Python backend services, and AI-native products. Proficient in React, REST APIs, relational databases (PostgreSQL/MySQL), and AWS cloud deployments.",
     "whatsappUrl": "https://wa.me/917775815981",
     "phone": "+91 7775815981",
     "pdfFile": "RESUME11.pdf",
@@ -20,78 +20,76 @@
   },
   "about": {
     "paragraphs": [
-      "I am an Artificial Intelligence & Data Science engineer pursuing a B.E. at Dr. D. Y. Patil Institute of Technology with a focus on building dependable, full-stack applications.",
-      "I specialize in bridging the gap between standalone machine learning models and production-ready systems by integrating robust backend architectures with automated cloud pipelines, ensuring innovation translates into stable, enterprise-grade solutions."
+      "I am an Artificial Intelligence & Data Science engineer with hands-on experience building fullstack applications, scalable Node.js/Python backend services, and AI-native products.",
+      "Proficient in React, REST APIs, relational databases (PostgreSQL/MySQL), and AWS cloud deployments. Driven by developing production-ready workflows, optimizing query performance, and building resilient systems."
     ],
     "coreCompetencies": [
+      "Fullstack Engineering",
       "AI-Native Engineering",
-      "RAG & Agentic AI",
-      "Machine Learning & LLMs",
-      "PyTorch & TensorFlow",
-      "Full-Stack React & FastAPI",
-      "Backend & REST APIs",
-      "Automated Cloud Pipelines",
-      "Git & GitHub Actions"
+      "LLM Fine-tuning & RAG",
+      "FastAPI & Node.js",
+      "AWS (EC2, S3) & DevOps",
+      "PostgreSQL & MySQL",
+      "PyTorch & LSTM Models",
+      "CI/CD GitHub Actions"
     ]
   },
   "skills": [
     {
-      "title": "Languages & Fwks",
-      "skills": "Python, SQL, Javascript, React, FastAPI, REST APIs"
+      "title": "Fullstack Engineering",
+      "skills": "JavaScript, TypeScript, React, Node.js, Python, FastAPI, RESTful APIs, JSON"
+    },
+    {
+      "title": "Database & Data Modeling",
+      "skills": "PostgreSQL, MySQL, Schema Design, Query Performance Optimization, Structured Data Parsing"
+    },
+    {
+      "title": "Cloud & DevOps",
+      "skills": "AWS (EC2, S3), GitHub Actions, Git, CI/CD Pipelines, Docker, Agile/Scrum"
     },
     {
       "title": "AI-Native Eng.",
-      "skills": "Prompt Engineering, RAG Pipelines, LangChain, Agentic AI"
+      "skills": "LLM Fine-tuning, RAG Pipelines, LangChain, PyTorch, LSTM Neural Networks, Vector Databases"
     },
     {
-      "title": "Machine Learning",
-      "skills": "LLM, PyTorch, LSTM Neural Networks, Scikit-learn, TensorFlow"
-    },
-    {
-      "title": "Software Tools",
-      "skills": "Github Actions, Git, Agile Methodology, Scrum Model"
-    },
-    {
-      "title": "Visualization",
-      "skills": "Power BI, Tableau, Looker Studio, Zoho Analytics"
-    },
-    {
-      "title": "Soft Skills",
-      "skills": "Team Work, Critical Thinking, Adaptability, Problem Solving, Communication"
+      "title": "Visualization & Tools",
+      "skills": "Power BI, Tableau, Looker Studio, Automated Workflow Tooling"
     }
   ],
   "projects": [
     {
-      "title": "AI-Powered Legal Document Translation",
-      "description": "Engineered a solution by fine-tuning the Sarvam LLM locally over a large-scale legal corpus to ensure high-domain accuracy. Utilized PyMuPDF for document parsing and implemented structured outputs to maintain intricate legal formatting. Conducted rigorous validation of legal terminology to ensure strict structural accuracy standards.",
+      "title": "AI-Powered Legal Document Translation System",
+      "description": "Fine-tuned the Sarvam LLM locally on specialized domain corpora to ensure high terminology precision and domain accuracy. Utilized PyMuPDF for document parsing and built clean REST API endpoints serving structured JSON outputs across 150+ legal documents.",
       "techStack": [
-        "Sarvam LLM",
-        "PyMuPDF",
-        "LLM Fine-Tuning",
-        "Structured Outputs"
+        "Python",
+        "FastAPI",
+        "REST APIs",
+        "React",
+        "Sarvam LLM"
       ],
       "github": "https://github.com/Akshada2411/AI-Powered-legal-translator"
     },
     {
-      "title": "Automated Candlestick Predictor (Predictive Engine)",
-      "description": "Developed an end-to-end predictive system harvesting real-time market data from Angel One SmartAPI via WebSockets. Built a PyTorch-based LSTM model analyzing the rhythm of 60+ previous candles to forecast price returns. Implemented GitHub Actions to automate inference & ingestion, pushing live data to Google Sheets and updating a React dashboard with FastAPI backend rendering Ghost Candle forecasts.",
+      "title": "Automated Candlestick Predictor (Fullstack Platform)",
+      "description": "Architected an end-to-end fullstack platform consuming real-time streaming market data over WebSockets with 99.9% pipeline uptime. Engineered a PyTorch-based LSTM model analyzing sequential time-series patterns across 60-candle windows to serve predictive API endpoints.",
       "techStack": [
-        "PyTorch (LSTM)",
+        "React",
         "FastAPI",
-        "WebSockets",
-        "GitHub Actions",
-        "React"
+        "PyTorch",
+        "Node.js",
+        "WebSockets"
       ],
       "github": "https://github.com/2411Aditya/Candlestick-predictor"
     },
     {
       "title": "Intelligent Knowledge Assistant (RAG Pipeline)",
-      "description": "Built a Retrieval-Augmented Generation (RAG) system using LangChain and Vector Databases to query private datasets. Integrated AI evaluation metrics to flag hallucinations and ensure response relevance, following secure-by-design AI practices.",
+      "description": "Built a Retrieval-Augmented Generation (RAG) system using LangChain and Vector Databases for semantic querying over private datasets. Integrated evaluation and observability metrics to monitor response relevance, decreasing hallucination rates by 30% across data queries.",
       "techStack": [
         "LangChain",
-        "Vector Databases",
-        "RAG Pipeline",
-        "AI Evaluation"
+        "Vector DB",
+        "Node.js",
+        "Python",
+        "RAG Pipeline"
       ],
       "github": "https://github.com/2411Aditya/Intelligent-Knowledge-Assistant-RAG"
     }
@@ -99,20 +97,20 @@
   "experience": [
     {
       "company": "Parallel Learning",
-      "period": "22 Sep, 2025 - 15 Jan, 2026",
-      "role": "Software Intern",
+      "period": "09/2025 – 01/2026",
+      "role": "Software Engineering Intern",
       "highlights": [
         {
-          "label": "AI-First Workflows:",
-          "text": "Spearheaded the integration of AI solutions to automate internal processes, significantly increasing efficiency and reducing manual error rates."
+          "label": "Backend & Service Optimization:",
+          "text": "Refactored database schemas and complex relational queries, reducing average API response latency by 25% and ensuring seamless high-concurrency data flow."
         },
         {
-          "label": "System Optimization:",
-          "text": "Refactored complex MySQL queries and managed backend performance to ensure seamless data flow and application stability."
+          "label": "Cloud Deployments & Automation:",
+          "text": "Orchestrated application deployments and static asset hosting across AWS EC2 and S3 instances, while automating internal workflows to cut manual operational work by 4%."
         },
         {
-          "label": "Stakeholder Collaboration:",
-          "text": "Partnered with non-technical teams to transform abstract business requirements into high-performing, functional software tools."
+          "label": "Cross-Functional Product Delivery:",
+          "text": "Collaborated closely with cross-functional teams to translate abstract product requirements into production-ready software features."
         }
       ]
     }
@@ -121,19 +119,19 @@
     {
       "degree": "B.E. in AI & DS",
       "institution": "Dr. D. Y. Patil Institute of Technology",
-      "score": "CGPA: 7.1 / 10",
+      "score": "CGPA: 7.09 / 10.00",
       "year": "2026"
     },
     {
       "degree": "12th Grade",
-      "institution": "Late B G Kabra Jr College, Malegaon (MSBSHSE)",
-      "score": "Percentage: 63.67%",
+      "institution": "Late B G Kabra Jr College (MSBSHSE)",
+      "score": "Percentage: 83.67 / 100.00",
       "year": "2022"
     },
     {
       "degree": "10th Grade",
-      "institution": "Standard English Medium School (CBSE)",
-      "score": "Percentage: 74.00%",
+      "institution": "Vidya Vikas International School (CBSE)",
+      "score": "Percentage: 87.20%",
       "year": "2020"
     }
   ],
@@ -142,19 +140,19 @@
       "title": "Treasurer",
       "organization": "TEAM SANSKRITI",
       "colorClass": "text-blue-400",
-      "description": "Oversaw financial planning and budget management for college cultural initiatives."
+      "description": "Oversaw financial planning, resource distribution, and budget allocation for major campus cultural events."
     },
     {
       "title": "Management Team",
       "organization": "TEAM DEVKRAFT",
       "colorClass": "text-green-400",
-      "description": "Organized large-scale technical events, focusing on logistics and team coordination."
+      "description": "Organized technical events for 500+ student participants, directing logistics and team execution."
     },
     {
       "title": "Coding Member",
       "organization": "TEAM AIRAWAT",
       "colorClass": "text-purple-400",
-      "description": "Collaborated on technical development for an E-Bike manufacturing project."
+      "description": "Collaborated on embedded firmware development and data processing for an E-Bike design project."
     }
   ],
   "certifications": [
