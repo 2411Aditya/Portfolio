@@ -1,0 +1,182 @@
+{
+  "personalInfo": {
+    "firstName": "ADITYA",
+    "lastName": "KULKARNI",
+    "titleTag": "B.E. AI & DS '26",
+    "roles": [
+      "AI Engineer",
+      "ML Specialist",
+      "Full-Stack Developer"
+    ],
+    "bio": "Artificial Intelligence & Data Science Engineer specializing in AI-native tools, RAG pipelines, LLM fine-tuning, and production-ready systems. Driven by creating robust architectures that translate machine learning into enterprise-grade applications.",
+    "whatsappUrl": "https://wa.me/917775815981",
+    "phone": "+91 7775815981",
+    "pdfFile": "RESUME11.pdf",
+    "pdfDownloadName": "Aditya_Kulkarni_Resume.pdf",
+    "socials": {
+      "github": "https://github.com/2411Aditya",
+      "linkedin": "https://www.linkedin.com/in/aditya-kulkarni-887474302?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+    }
+  },
+  "about": {
+    "paragraphs": [
+      "I am an Artificial Intelligence & Data Science engineer pursuing a B.E. at Dr. D. Y. Patil Institute of Technology with a focus on building dependable, full-stack applications.",
+      "I specialize in bridging the gap between standalone machine learning models and production-ready systems by integrating robust backend architectures with automated cloud pipelines, ensuring innovation translates into stable, enterprise-grade solutions."
+    ],
+    "coreCompetencies": [
+      "AI-Native Engineering",
+      "RAG & Agentic AI",
+      "Machine Learning & LLMs",
+      "PyTorch & TensorFlow",
+      "Full-Stack React & FastAPI",
+      "Backend & REST APIs",
+      "Automated Cloud Pipelines",
+      "Git & GitHub Actions"
+    ]
+  },
+  "skills": [
+    {
+      "title": "Languages & Fwks",
+      "skills": "Python, SQL, Javascript, React, FastAPI, REST APIs"
+    },
+    {
+      "title": "AI-Native Eng.",
+      "skills": "Prompt Engineering, RAG Pipelines, LangChain, Agentic AI"
+    },
+    {
+      "title": "Machine Learning",
+      "skills": "LLM, PyTorch, LSTM Neural Networks, Scikit-learn, TensorFlow"
+    },
+    {
+      "title": "Software Tools",
+      "skills": "Github Actions, Git, Agile Methodology, Scrum Model"
+    },
+    {
+      "title": "Visualization",
+      "skills": "Power BI, Tableau, Looker Studio, Zoho Analytics"
+    },
+    {
+      "title": "Soft Skills",
+      "skills": "Team Work, Critical Thinking, Adaptability, Problem Solving, Communication"
+    }
+  ],
+  "projects": [
+    {
+      "title": "AI-Powered Legal Document Translation",
+      "description": "Engineered a solution by fine-tuning the Sarvam LLM locally over a large-scale legal corpus to ensure high-domain accuracy. Utilized PyMuPDF for document parsing and implemented structured outputs to maintain intricate legal formatting. Conducted rigorous validation of legal terminology to ensure strict structural accuracy standards.",
+      "techStack": [
+        "Sarvam LLM",
+        "PyMuPDF",
+        "LLM Fine-Tuning",
+        "Structured Outputs"
+      ],
+      "github": "https://github.com/Akshada2411/AI-Powered-legal-translator"
+    },
+    {
+      "title": "Automated Candlestick Predictor (Predictive Engine)",
+      "description": "Developed an end-to-end predictive system harvesting real-time market data from Angel One SmartAPI via WebSockets. Built a PyTorch-based LSTM model analyzing the rhythm of 60+ previous candles to forecast price returns. Implemented GitHub Actions to automate inference & ingestion, pushing live data to Google Sheets and updating a React dashboard with FastAPI backend rendering Ghost Candle forecasts.",
+      "techStack": [
+        "PyTorch (LSTM)",
+        "FastAPI",
+        "WebSockets",
+        "GitHub Actions",
+        "React"
+      ],
+      "github": "https://github.com/2411Aditya/Candlestick-predictor"
+    },
+    {
+      "title": "Intelligent Knowledge Assistant (RAG Pipeline)",
+      "description": "Built a Retrieval-Augmented Generation (RAG) system using LangChain and Vector Databases to query private datasets. Integrated AI evaluation metrics to flag hallucinations and ensure response relevance, following secure-by-design AI practices.",
+      "techStack": [
+        "LangChain",
+        "Vector Databases",
+        "RAG Pipeline",
+        "AI Evaluation"
+      ],
+      "github": "https://github.com/2411Aditya/Intelligent-Knowledge-Assistant-RAG"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Parallel Learning",
+      "period": "22 Sep, 2025 - 15 Jan, 2026",
+      "role": "Software Intern",
+      "highlights": [
+        {
+          "label": "AI-First Workflows:",
+          "text": "Spearheaded the integration of AI solutions to automate internal processes, significantly increasing efficiency and reducing manual error rates."
+        },
+        {
+          "label": "System Optimization:",
+          "text": "Refactored complex MySQL queries and managed backend performance to ensure seamless data flow and application stability."
+        },
+        {
+          "label": "Stakeholder Collaboration:",
+          "text": "Partnered with non-technical teams to transform abstract business requirements into high-performing, functional software tools."
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.E. in AI & DS",
+      "institution": "Dr. D. Y. Patil Institute of Technology",
+      "score": "CGPA: 7.1 / 10",
+      "year": "2026"
+    },
+    {
+      "degree": "12th Grade",
+      "institution": "Late B G Kabra Jr College, Malegaon (MSBSHSE)",
+      "score": "Percentage: 63.67%",
+      "year": "2022"
+    },
+    {
+      "degree": "10th Grade",
+      "institution": "Standard English Medium School (CBSE)",
+      "score": "Percentage: 74.00%",
+      "year": "2020"
+    }
+  ],
+  "positionsOfResponsibility": [
+    {
+      "title": "Treasurer",
+      "organization": "TEAM SANSKRITI",
+      "colorClass": "text-blue-400",
+      "description": "Oversaw financial planning and budget management for college cultural initiatives."
+    },
+    {
+      "title": "Management Team",
+      "organization": "TEAM DEVKRAFT",
+      "colorClass": "text-green-400",
+      "description": "Organized large-scale technical events, focusing on logistics and team coordination."
+    },
+    {
+      "title": "Coding Member",
+      "organization": "TEAM AIRAWAT",
+      "colorClass": "text-purple-400",
+      "description": "Collaborated on technical development for an E-Bike manufacturing project."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Supervised Machine Learning",
+      "status": "Certification",
+      "desc": "Certified by DeepLearning.AI"
+    },
+    {
+      "name": "Data Analytics Program",
+      "status": "Program",
+      "desc": "Completed program by Godrej"
+    },
+    {
+      "name": "Devclash 24 Hour Hackathon",
+      "status": "Co-Curricular",
+      "desc": "Participated in 24-hour intensive development hackathon."
+    }
+  ],
+  "contact": {
+    "subtitle": "What's Next?",
+    "title": "Let's Talk",
+    "message": "I'm always open to discussing new opportunities, AI projects, or software engineering collaborations. Hit me up."
+  }
+}

@@ -1,14 +1,8 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import resumeData from '../data/resumeData.json';
 
 const Skills = () => {
-  const skillCategories = [
-    { title: "Languages & Fwks", skills: "Python, SQL, Javascript, React, FastAPI, REST APIs" },
-    { title: "AI-Native Eng.", skills: "Prompt Engineering, RAG Pipelines, LangChain, Agentic AI" },
-    { title: "Machine Learning", skills: "LLM, PyTorch, LSTM Neural Networks, Scikit-learn, TensorFlow" },
-    { title: "Software Tools", skills: "Github Actions, Git, Agile Methodology, Scrum Model" },
-    { title: "Visualization", skills: "Power BI, Tableau, Looker Studio, Zoho Analytics" },
-    { title: "Soft Skills", skills: "Team Work, Critical Thinking, Adaptability, Problem Solving, Communication" }
-  ];
+  const { skills: skillCategories } = resumeData;
 
   return (
     <section id="skills" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">

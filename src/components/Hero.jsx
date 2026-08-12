@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import resumeData from '../data/resumeData.json';
 
 const Hero = () => {
   const [theme, setTheme] = useState('dark');
+  const { personalInfo } = resumeData;
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -30,7 +32,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 1 }}
           className="text-xs tracking-widest text-[#e50914] font-extrabold uppercase"
         >
-          B.E. AI & DS '26
+          {personalInfo.titleTag}
         </motion.div>
 
         {/* Title */}
@@ -40,7 +42,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 1.2 }}
         >
           <h1 className="text-5xl md:text-8xl font-display font-extrabold tracking-tighter leading-[0.9] text-white">
-            ADITYA<br />KULKARNI
+            {personalInfo.firstName}<br />{personalInfo.lastName}
           </h1>
         </motion.div>
 
@@ -51,9 +53,12 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 1.4 }}
           className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-[#e5e5e5] font-semibold"
         >
-          <span>AI Engineer</span>
-          <span>•  ML Specialist</span>
-          <span>•  Full-Stack Developer</span>
+          {personalInfo.roles.map((role, idx) => (
+            <span key={idx}>
+              {idx > 0 && '•  '}
+              {role}
+            </span>
+          ))}
         </motion.div>
 
         {/* Description */}
@@ -64,7 +69,7 @@ const Hero = () => {
           className="max-w-2xl"
         >
           <p className="text-sm md:text-lg text-[#e5e5e5] leading-relaxed font-sans font-medium text-shadow-md">
-            Artificial Intelligence & Data Science Engineer specializing in AI-native tools, RAG pipelines, LLM fine-tuning, and production-ready systems. Driven by creating robust architectures that translate machine learning into enterprise-grade applications.
+            {personalInfo.bio}
           </p>
         </motion.div>
 
@@ -75,13 +80,13 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 1.8 }}
           className="flex flex-wrap gap-4 mt-2"
         >
-          <a href="https://wa.me/917775815981" target="_blank" rel="noopener noreferrer" className="btn-play uppercase">
+          <a href={personalInfo.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-play uppercase">
             Say Hello
           </a>
           <a href="#about" className="btn-info uppercase">
             About
           </a>
-          <a href={`${import.meta.env.BASE_URL}RESUME11.pdf`} target="_blank" rel="noreferrer" download="Aditya_Kulkarni_Resume.pdf" className="btn-info bg-white/10 hover:bg-white/20 border border-white/15 uppercase">
+          <a href={`${import.meta.env.BASE_URL}${personalInfo.pdfFile}`} target="_blank" rel="noreferrer" download={personalInfo.pdfDownloadName} className="btn-info bg-white/10 hover:bg-white/20 border border-white/15 uppercase">
             Download Resume
           </a>
         </motion.div>

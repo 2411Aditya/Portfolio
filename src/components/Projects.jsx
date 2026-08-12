@@ -1,27 +1,9 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
+import resumeData from '../data/resumeData.json';
 
 const Projects = () => {
-  const projects = [
-    {
-      title: "AI-Powered Legal Document Translation",
-      description: "Engineered a solution by fine-tuning the Sarvam LLM locally over a large-scale legal corpus to ensure high-domain accuracy. Utilized PyMuPDF for document parsing and implemented structured outputs to maintain intricate legal formatting. Conducted rigorous validation of legal terminology to ensure strict structural accuracy standards.",
-      techStack: ["Sarvam LLM", "PyMuPDF", "LLM Fine-Tuning", "Structured Outputs"],
-      github: "https://github.com/Akshada2411/AI-Powered-legal-translator"
-    },
-    {
-      title: "Automated Candlestick Predictor (Predictive Engine)",
-      description: "Developed an end-to-end predictive system harvesting real-time market data from Angel One SmartAPI via WebSockets. Built a PyTorch-based LSTM model analyzing the rhythm of 60+ previous candles to forecast price returns. Implemented GitHub Actions to automate inference & ingestion, pushing live data to Google Sheets and updating a React dashboard with FastAPI backend rendering Ghost Candle forecasts.",
-      techStack: ["PyTorch (LSTM)", "FastAPI", "WebSockets", "GitHub Actions", "React"],
-      github: "https://github.com/2411Aditya/Candlestick-predictor"
-    },
-    {
-      title: "Intelligent Knowledge Assistant (RAG Pipeline)",
-      description: "Built a Retrieval-Augmented Generation (RAG) system using LangChain and Vector Databases to query private datasets. Integrated AI evaluation metrics to flag hallucinations and ensure response relevance, following secure-by-design AI practices.",
-      techStack: ["LangChain", "Vector Databases", "RAG Pipeline", "AI Evaluation"],
-      github: "https://github.com/2411Aditya/Intelligent-Knowledge-Assistant-RAG"
-    }
-  ];
+  const { projects } = resumeData;
 
   return (
     <section id="projects" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">
@@ -82,7 +64,7 @@ const Projects = () => {
 
                 <div className="flex flex-wrap gap-2 text-[10px] text-white/50 uppercase font-sans font-bold pt-4 border-t border-white/5">
                   {project.techStack.map((tech, i) => (
-                    <span key={i} className="after:content-['â€¢'] after:ml-2 last:after:content-none">{tech}</span>
+                    <span key={i} className="after:content-['•'] after:ml-2 last:after:content-none">{tech}</span>
                   ))}
                 </div>
               </div>

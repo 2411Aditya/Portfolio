@@ -1,11 +1,8 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import resumeData from '../data/resumeData.json';
 
 const Certifications = () => {
-  const certifications = [
-    { name: "Supervised Machine Learning", status: "Certification", desc: "Certified by DeepLearning.AI" },
-    { name: "Data Analytics Program", status: "Program", desc: "Completed program by Godrej" },
-    { name: "Devclash 24 Hour Hackathon", status: "Co-Curricular", desc: "Participated in 24-hour intensive development hackathon." }
-  ];
+  const { positionsOfResponsibility, certifications } = resumeData;
 
   return (
     <section id="certifications" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">
@@ -27,27 +24,15 @@ const Certifications = () => {
         <div className="mb-24">
           <h3 className="text-xl font-display font-extrabold text-white uppercase tracking-wider mb-8">Positions of Responsibility</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div whileHover={{ y: -5 }} className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
-              <h4 className="text-lg font-display font-extrabold text-white mb-2 uppercase tracking-tight">Treasurer</h4>
-              <div className="text-xs font-bold text-blue-400 mb-4 tracking-wider">TEAM SANSKRITI</div>
-              <p className="text-[#a3a3a3] font-sans text-sm leading-relaxed">
-                Oversaw financial planning and budget management for college cultural initiatives.
-              </p>
-            </motion.div>
-            <motion.div whileHover={{ y: -5 }} className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
-              <h4 className="text-lg font-display font-extrabold text-white mb-2 uppercase tracking-tight">Management Team</h4>
-              <div className="text-xs font-bold text-green-400 mb-4 tracking-wider">TEAM DEVKRAFT</div>
-              <p className="text-[#a3a3a3] font-sans text-sm leading-relaxed">
-                Organized large-scale technical events, focusing on logistics and team coordination.
-              </p>
-            </motion.div>
-            <motion.div whileHover={{ y: -5 }} className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
-              <h4 className="text-lg font-display font-extrabold text-white mb-2 uppercase tracking-tight">Coding Member</h4>
-              <div className="text-xs font-bold text-purple-400 mb-4 tracking-wider">TEAM AIRAWAT</div>
-              <p className="text-[#a3a3a3] font-sans text-sm leading-relaxed">
-                Collaborated on technical development for an E-Bike manufacturing project.
-              </p>
-            </motion.div>
+            {positionsOfResponsibility.map((pos, idx) => (
+              <motion.div key={idx} whileHover={{ y: -5 }} className="bg-[#181818]/85 border border-white/5 p-8 rounded-md hover:border-[#e50914]/40 transition-all duration-300">
+                <h4 className="text-lg font-display font-extrabold text-white mb-2 uppercase tracking-tight">{pos.title}</h4>
+                <div className={`text-xs font-bold ${pos.colorClass} mb-4 tracking-wider`}>{pos.organization}</div>
+                <p className="text-[#a3a3a3] font-sans text-sm leading-relaxed">
+                  {pos.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
 
