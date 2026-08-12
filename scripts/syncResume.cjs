@@ -79,10 +79,13 @@ parser.getText().then(result => {
   }
 
   // Parse Experience
+  const expPeriodMatch = text.match(/(\d{2}\/\d{4}\s*[\u2013\-–\u2014]\s*(?:\d{2}\/\d{4}|Present))/i);
+  const expPeriod = expPeriodMatch ? expPeriodMatch[1].trim() : "01/2025 – 01/2026";
+
   const experience = [
     {
       company: "Parallel Learning",
-      period: "09/2025 – 01/2026",
+      period: expPeriod,
       role: "Software Engineering Intern",
       highlights: [
         {
