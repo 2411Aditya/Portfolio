@@ -2,20 +2,31 @@ const fs = require('fs');
 const path = require('path');
 const pdf = require('pdf-parse');
 
-const pdfPath = path.join(__dirname, '../public/RESUME11.pdf');
+const publicDir = path.join(__dirname, '../public');
 const jsonPath = path.join(__dirname, '../src/data/resumeData.json');
 
-if (!fs.existsSync(pdfPath)) {
-  console.error("❌ Error: public/RESUME11.pdf not found!");
+const pdfFiles = fs.readdirSync(publicDir)
+  .filter(f => f.toLowerCase().endsWith('.pdf') && !f.toLowerCase().includes('not_in_use'))
+  .map(f => ({
+    name: f,
+    path: path.join(publicDir, f),
+    mtime: fs.statSync(path.join(publicDir, f)).mtimeMs
+  }))
+  .sort((a, b) => b.mtime - a.mtime);
+
+if (pdfFiles.length === 0) {
+  console.error("❌ Error: No active PDF file found in public/ folder!");
   process.exit(1);
 }
 
+const activePdf = pdfFiles[0];
+const pdfPath = activePdf.path;
 const dataBuffer = fs.readFileSync(pdfPath);
 const parser = new pdf.PDFParse(new Uint8Array(dataBuffer));
 
 parser.getText().then(result => {
   const text = typeof result === 'string' ? result : (result.text || (result.pages && result.pages[0] ? result.pages[0].text : ''));
-  console.log("=== 📄 Reading public/RESUME11.pdf ===");
+  console.log(`=== 📄 Reading public/${activePdf.name} ===`);
 
   // Parse Education
   const education = [];
@@ -147,7 +158,7 @@ parser.getText().then(result => {
       bio: "Artificial Intelligence & Data Science engineer with hands-on experience building fullstack applications, scalable Node.js/Python backend services, and AI-native products. Proficient in React, REST APIs, relational databases (PostgreSQL/MySQL), and AWS cloud deployments.",
       whatsappUrl: "https://wa.me/917775815981",
       phone: "+91 7775815981",
-      pdfFile: "RESUME11.pdf",
+      pdfFile: activePdf.name,
       pdfDownloadName: "Aditya_Kulkarni_Resume.pdf",
       socials: {
         github: "https://github.com/2411Aditya",
