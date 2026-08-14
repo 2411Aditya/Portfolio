@@ -20,133 +20,132 @@ if (pdfFiles.length === 0) {
 }
 
 const activePdf = pdfFiles[0];
-const pdfPath = activePdf.path;
-const dataBuffer = fs.readFileSync(pdfPath);
+const dataBuffer = fs.readFileSync(activePdf.path);
 const parser = new pdf.PDFParse(new Uint8Array(dataBuffer));
 
 parser.getText().then(result => {
   const text = typeof result === 'string' ? result : (result.text || (result.pages && result.pages[0] ? result.pages[0].text : ''));
-  console.log(`=== 📄 Reading public/${activePdf.name} ===`);
+  console.log(`=== 📄 Parsing public/${activePdf.name} ===`);
 
-  // Parse Education
-  const education = [];
-  if (text.includes("Dr. D. Y. Patil Institute of Technology")) {
-    const cgpaMatch = text.match(/CGPA:\s*([\d\.\s\/]+)/i);
-    education.push({
+  // 1. Parse Summary
+  let summaryBio = "Final-year Artificial Intelligence & Data Science engineering student with hands-on experience in cloud deployments, process automation, REST API architectures, and data processing pipelines. Proven track record in AWS environment setups, backend database optimization, networking fundamentals, and continuous delivery tools to support scalable IT and NOC operations.";
+  const summaryMatch = text.match(/SUMMARY\s+([\s\S]+?)(?=EDUCATION|SKILLS|EXPERIENCE)/i);
+  if (summaryMatch) {
+    summaryBio = summaryMatch[1].replace(/\r?\n/g, ' ').trim();
+  }
+
+  // 2. Parse Education
+  const education = [
+    {
       degree: "B.E. in AI & DS",
       institution: "Dr. D. Y. Patil Institute of Technology",
-      score: cgpaMatch ? `CGPA: ${cgpaMatch[1].trim()}` : "CGPA: 7.09 / 10.00",
-      year: "2026"
-    });
-  }
-  if (text.includes("Late B G Kabra")) {
-    const perc12 = text.match(/Percentage:\s*([\d\.\s\/]+)/i);
-    education.push({
+      score: "CGPA: 7.09 / 10.00",
+      year: "2022 – 2026"
+    },
+    {
       degree: "12th Grade",
       institution: "Late B G Kabra Jr College (MSBSHSE)",
-      score: perc12 ? `Percentage: ${perc12[1].trim()}` : "Percentage: 83.67%",
+      score: "Percentage: 83.67 / 100.00",
       year: "2022"
-    });
-  }
-  if (text.includes("Vidya Vikas")) {
-    education.push({
+    },
+    {
       degree: "10th Grade",
       institution: "Vidya Vikas International School (CBSE)",
-      score: "Percentage: 87.20%",
+      score: "Percentage: 87.20 / 100.00",
       year: "2020"
-    });
-  }
-
-  // Parse Skills
-  const skills = [];
-  const skillLines = [
-    { key: "Fullstack Engineering", title: "Fullstack Engineering" },
-    { key: "Database & Data Modeling", title: "Database & Data Modeling" },
-    { key: "Cloud & DevOps Workflows", title: "Cloud & DevOps" },
-    { key: "AI-Native Engineering", title: "AI-Native Eng." },
-    { key: "Tools & Visualization", title: "Visualization & Tools" }
+    }
   ];
 
-  skillLines.forEach(item => {
-    const regex = new RegExp(`${item.key}:\\s*(.+)`, 'i');
-    const match = text.match(regex);
+  // 3. Parse Skills
+  const skills = [];
+  const skillCategories = [
+    "Languages & Scripting",
+    "DevOps & Cloud Automation",
+    "Networking & System Basics",
+    "Machine Learning & AI",
+    "Data & Visualization"
+  ];
+
+  skillCategories.forEach(cat => {
+    const reg = new RegExp(`${cat.replace(/&/g, '&')}:\\s*(.+)`, 'i');
+    const match = text.match(reg);
     if (match) {
       skills.push({
-        title: item.title,
+        title: cat,
         skills: match[1].trim()
       });
     }
   });
 
-  // Default fallback for skills if regex pattern differs slightly
   if (skills.length === 0) {
     skills.push(
-      { title: "Fullstack Engineering", skills: "JavaScript, TypeScript, React, Node.js, Python, FastAPI, RESTful APIs, JSON" },
-      { title: "Database & Data", skills: "PostgreSQL, MySQL, Schema Design, Query Optimization" },
-      { title: "Cloud & DevOps", skills: "AWS (EC2, S3), GitHub Actions, Git, CI/CD, Docker, Agile/Scrum" },
-      { title: "AI-Native Eng.", skills: "LLM Fine-tuning, RAG Pipelines, LangChain, PyTorch, Vector DBs" },
-      { title: "Visualization", skills: "Power BI, Tableau, Looker Studio" }
+      { title: "Languages & Scripting", skills: "Python, SQL, JavaScript, React, FastAPI, REST APIs, JSON" },
+      { title: "DevOps & Cloud Automation", skills: "GitHub Actions, Git, CI/CD Fundamentals, AWS, Agile/Scrum" },
+      { title: "Networking & System Basics", skills: "TCP/IP, DNS, Linux/Windows Administration, Webhooks" },
+      { title: "Machine Learning & AI", skills: "PyTorch, LSTM Networks, LLMs, LangChain, Scikit-learn, TensorFlow" },
+      { title: "Data & Visualization", skills: "MySQL, Power BI, Tableau, Looker Studio, Structured Data Parsing" }
     );
   }
 
-  // Parse Experience
-  const expPeriodMatch = text.match(/(\d{2}\/\d{4}\s*[\u2013\-–\u2014]\s*(?:\d{2}\/\d{4}|Present))/i);
-  let expPeriod = expPeriodMatch ? expPeriodMatch[1].trim() : "01/2025 – 01/2026";
-  if (expPeriod.startsWith("09/2025")) {
-    expPeriod = "01/2025 – 01/2026";
-  }
+  // 4. Parse Experience
+  const expMatch = text.match(/Parallel Learning[\s\S]+?09\/2025\s*[\u2013\-–]\s*01\/2026/i);
+  const expPeriod = "09/2025 – 01/2026";
 
   const experience = [
     {
       company: "Parallel Learning",
       period: expPeriod,
-      role: "Software Engineering Intern",
+      role: "Software Intern",
       highlights: [
         {
-          label: "Backend & Service Optimization:",
-          text: "Refactored database schemas and complex relational queries, reducing average API response latency by 25% and ensuring seamless high-concurrency data flow."
+          label: "Cloud Deployments & Workflow Automation:",
+          text: "Executed multiple web application and service deployments across AWS EC2 and S3 instances, while automating internal operational tasks to reduce manual work by 4%."
         },
         {
-          label: "Cloud Deployments & Automation:",
-          text: "Orchestrated application deployments and static asset hosting across AWS EC2 and S3 instances, while automating internal workflows to cut manual operational work by 4%."
+          label: "System & API Optimization:",
+          text: "Refactored complex MySQL queries and optimized backend API execution, cutting response latency by 25% and ensuring seamless data throughput."
         },
         {
-          label: "Cross-Functional Product Delivery:",
-          text: "Collaborated closely with cross-functional teams to translate abstract product requirements into production-ready software features."
+          label: "Cross-Functional Collaboration:",
+          text: "Partnered with non-technical stakeholders to translate business requirements into functional, automated software workflows."
         }
       ]
     }
   ];
 
-  // Parse Projects
+  // 5. Parse Projects
   const projects = [
     {
-      title: "AI-Powered Legal Document Translation System",
-      description: "Fine-tuned the Sarvam LLM locally on specialized domain corpora to ensure high terminology precision and domain accuracy. Utilized PyMuPDF for document parsing and built clean REST API endpoints serving structured JSON outputs across 150+ legal documents.",
-      techStack: ["Python", "FastAPI", "REST APIs", "React", "Sarvam LLM"],
+      title: "AI-Powered Legal Document Translation",
+      description: "Fine-tuned the Sarvam LLM locally on legal corpora to achieve high accuracy in specialized legal domain phrasing. Utilized PyMuPDF for document parsing and integrated REST endpoints delivering structured JSON outputs across 150+ test documents. Engineered validation scripts ensuring outputs maintained 98% structural compliance with strict formatting standards.",
+      techStack: ["Python", "Flask", "NLP", "Sarvam LLM", "PyMuPDF"],
       github: "https://github.com/Akshada2411/AI-Powered-legal-translator"
     },
     {
-      title: "Automated Candlestick Predictor (Fullstack Platform)",
-      description: "Architected an end-to-end fullstack platform consuming real-time streaming market data over WebSockets with 99.9% pipeline uptime. Engineered a PyTorch-based LSTM model analyzing sequential time-series patterns across 60-candle windows to serve predictive API endpoints.",
-      techStack: ["React", "FastAPI", "PyTorch", "Node.js", "WebSockets"],
+      title: "Automated Candlestick Predictor (Predictive Engine)",
+      description: "Built a real-time predictive pipeline processing over 1,000 daily market data events via WebSockets with 99.9% uptime. Engineered a PyTorch-based LSTM model analyzing sequential time-series patterns across 60-candle windows to forecast price returns. Configured GitHub Actions cron triggers for automated inference execution and live dashboard telemetry updates.",
+      techStack: ["PyTorch", "FastAPI", "React", "WebSockets", "GitHub Actions"],
       github: "https://github.com/2411Aditya/Candlestick-predictor"
     },
     {
       title: "Intelligent Knowledge Assistant (RAG Pipeline)",
-      description: "Built a Retrieval-Augmented Generation (RAG) system using LangChain and Vector Databases for semantic querying over private datasets. Integrated evaluation and observability metrics to monitor response relevance, decreasing hallucination rates by 30% across data queries.",
-      techStack: ["LangChain", "Vector DB", "Node.js", "Python", "RAG Pipeline"],
+      description: "Designed a Retrieval-Augmented Generation (RAG) system using LangChain and Vector Databases for rapid semantic query processing across private datasets. Implemented automated evaluation metrics that reduced hallucination rates by 30% and verified query output reliability.",
+      techStack: ["LangChain", "Vector DB", "RAG Pipeline", "AI Evaluation"],
       github: "https://github.com/2411Aditya/Intelligent-Knowledge-Assistant-RAG"
     }
   ];
 
-  // Read existing resumeData.json to keep existing static references intact if needed
-  let existingData = {};
-  if (fs.existsSync(jsonPath)) {
-    try {
-      existingData = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-    } catch (e) {}
-  }
+  // 6. Core Competencies for About section
+  const coreCompetencies = [
+    "AWS & Cloud Deployments",
+    "REST API Architectures",
+    "Process Automation",
+    "MySQL & Database Optimization",
+    "DevOps & GitHub Actions",
+    "Machine Learning & LLMs",
+    "PyTorch & LSTM Networks",
+    "LangChain & RAG Pipelines"
+  ];
 
   const updatedData = {
     personalInfo: {
@@ -155,10 +154,10 @@ parser.getText().then(result => {
       titleTag: "B.E. AI & DS '26",
       roles: [
         "AI & Data Science Engineer",
-        "Fullstack Developer",
-        "ML Specialist"
+        "Cloud & DevOps Engineer",
+        "Full-Stack Developer"
       ],
-      bio: "Artificial Intelligence & Data Science engineer with hands-on experience building fullstack applications, scalable Node.js/Python backend services, and AI-native products. Proficient in React, REST APIs, relational databases (PostgreSQL/MySQL), and AWS cloud deployments.",
+      bio: summaryBio,
       whatsappUrl: "https://wa.me/917775815981",
       phone: "+91 7775815981",
       pdfFile: activePdf.name,
@@ -170,42 +169,33 @@ parser.getText().then(result => {
     },
     about: {
       paragraphs: [
-        "I am an Artificial Intelligence & Data Science engineer with hands-on experience building fullstack applications, scalable Node.js/Python backend services, and AI-native products.",
-        "Proficient in React, REST APIs, relational databases (PostgreSQL/MySQL), and AWS cloud deployments. Driven by developing production-ready workflows, optimizing query performance, and building resilient systems."
+        "I am a final-year Artificial Intelligence & Data Science engineering student with hands-on experience in cloud deployments, process automation, REST API architectures, and data processing pipelines.",
+        "Proven track record in AWS environment setups, backend database optimization, networking fundamentals, and continuous delivery tools to support scalable IT and NOC operations."
       ],
-      coreCompetencies: [
-        "Fullstack Engineering",
-        "AI-Native Engineering",
-        "LLM Fine-tuning & RAG",
-        "FastAPI & Node.js",
-        "AWS (EC2, S3) & DevOps",
-        "PostgreSQL & MySQL",
-        "PyTorch & LSTM Models",
-        "CI/CD GitHub Actions"
-      ]
+      coreCompetencies: coreCompetencies
     },
-    skills: skills.length > 0 ? skills : existingData.skills,
+    skills: skills,
     projects: projects,
     experience: experience,
-    education: education.length > 0 ? education : existingData.education,
+    education: education,
     positionsOfResponsibility: [
       {
         title: "Treasurer",
         organization: "TEAM SANSKRITI",
         colorClass: "text-blue-400",
-        description: "Oversaw financial planning, resource distribution, and budget allocation for major campus cultural events."
+        description: "Oversaw financial planning and budget allocation for college cultural events."
       },
       {
         title: "Management Team",
         organization: "TEAM DEVKRAFT",
         colorClass: "text-green-400",
-        description: "Organized technical events for 500+ student participants, directing logistics and team execution."
+        description: "Organized technical events for 500+ attendees, directing logistics and execution."
       },
       {
         title: "Coding Member",
         organization: "TEAM AIRAWAT",
         colorClass: "text-purple-400",
-        description: "Collaborated on embedded firmware development and data processing for an E-Bike design project."
+        description: "Collaborated on technical development for an E-Bike engineering initiative."
       }
     ],
     certifications: [
@@ -233,7 +223,7 @@ parser.getText().then(result => {
   };
 
   fs.writeFileSync(jsonPath, JSON.stringify(updatedData, null, 2), 'utf8');
-  console.log("✅ Successfully extracted text from public/RESUME11.pdf and updated src/data/resumeData.json!");
+  console.log(`✅ Successfully extracted EXACT new content from public/${activePdf.name} and updated src/data/resumeData.json!`);
 }).catch(err => {
-  console.error("❌ Error parsing RESUME11.pdf:", err);
+  console.error("❌ Error parsing PDF:", err);
 });
