@@ -40,20 +40,20 @@
       "skills": "JavaScript, TypeScript, React, Node.js, Python, FastAPI, RESTful APIs, JSON"
     },
     {
-      "title": "Database & Data Modeling",
-      "skills": "PostgreSQL, MySQL, Schema Design, Query Performance Optimization, Structured Data Parsing"
+      "title": "Database & Data",
+      "skills": "PostgreSQL, MySQL, Schema Design, Query Optimization"
     },
     {
       "title": "Cloud & DevOps",
-      "skills": "AWS (EC2, S3), GitHub Actions, Git, CI/CD Pipelines, Docker, Agile/Scrum"
+      "skills": "AWS (EC2, S3), GitHub Actions, Git, CI/CD, Docker, Agile/Scrum"
     },
     {
       "title": "AI-Native Eng.",
-      "skills": "LLM Fine-tuning, RAG Pipelines, LangChain, PyTorch, LSTM Neural Networks, Vector Databases"
+      "skills": "LLM Fine-tuning, RAG Pipelines, LangChain, PyTorch, Vector DBs"
     },
     {
-      "title": "Visualization & Tools",
-      "skills": "Power BI, Tableau, Looker Studio, Automated Workflow Tooling"
+      "title": "Visualization",
+      "skills": "Power BI, Tableau, Looker Studio"
     }
   ],
   "projects": [
@@ -97,7 +97,7 @@
   "experience": [
     {
       "company": "Parallel Learning",
-      "period": "01/2025 – 01/2026",
+      "period": "09/2025 – 01/2026",
       "role": "Software Engineering Intern",
       "highlights": [
         {
