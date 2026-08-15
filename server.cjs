@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
+const http = require('http');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,7 +15,6 @@ const DATA_DIR = process.env.NODE_ENV === 'production'
   ? '/opt/render/project/src/portfolio-data'
   : path.join(__dirname, 'portfolio-data');
 const HISTORY_FILE = path.join(DATA_DIR, 'history.json');
-
 
 // Ensure data directory exists
 if (!fs.existsSync(DATA_DIR)) {
@@ -52,6 +53,11 @@ const readHistory = () => {
 const writeHistory = (history) => {
   fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
 };
+
+// GET /api/portfolio/health & /health - Lightweight ping endpoint to keep server awake
+app.get(['/api/portfolio/health', '/health'], (req, res) => {
+  res.json({ status: 'ok', uptime: process.uptime(), timestamp: new Date().toISOString() });
+});
 
 // GET /api/portfolio/history - Get all saved portfolio versions
 app.get('/api/portfolio/history', (req, res) => {
@@ -116,10 +122,20 @@ app.delete('/api/portfolio/:id', (req, res) => {
   res.json({ success: true });
 });
 
-// GET /api/ping - Keep-alive endpoint (called every 10 min by frontend to prevent Render sleep)
-app.get('/api/ping', (req, res) => {
-  res.json({ ok: true, ts: Date.now() });
-});
+// Automated 10-minute Self-Ping keep-alive (keeps Render active)
+const KEEP_ALIVE_URL = process.env.RENDER_EXTERNAL_URL 
+  ? `${process.env.RENDER_EXTERNAL_URL}/api/portfolio/health` 
+  : 'https://portfolio-admin-backend-l78p.onrender.com/api/portfolio/health';
+
+if (process.env.NODE_ENV === 'production') {
+  setInterval(() => {
+    https.get(KEEP_ALIVE_URL, (res) => {
+      console.log(`[Keep-Alive Ping] Status: ${res.statusCode} at ${new Date().toISOString()}`);
+    }).on('error', (err) => {
+      console.warn(`[Keep-Alive Ping Error]: ${err.message}`);
+    });
+  }, 10 * 60 * 1000); // Trigger every 10 minutes
+}
 
 app.listen(PORT, () => {
   console.log(`\n🚀 Portfolio Backend running at http://localhost:${PORT}`);
