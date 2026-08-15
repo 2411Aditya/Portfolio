@@ -72,7 +72,7 @@ function AppContent() {
   }
 
   return (
-    <div className="bg-bg-dark text-text-main selection:bg-[#e50914]/30 font-sans antialiased overflow-x-hidden cursor-none">
+    <div className="bg-bg-dark text-text-main selection:bg-[#e50914]/30 font-sans antialiased overflow-x-hidden md:cursor-none cursor-auto">
       {/* Fixed full-screen LiquidEther background */}
       <div style={{
         position: 'fixed',

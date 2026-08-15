@@ -7,22 +7,22 @@ const Skills = () => {
   const skillCategories = currentPortfolio?.skills || [];
 
   return (
-    <section id="skills" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">
+    <section id="skills" className="py-16 sm:py-24 relative px-4 sm:px-6 md:px-16 bg-[#141414]/85 border-t border-white/5">
       <div className="max-w-[1600px] mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16 pb-6 flex items-end justify-between border-b border-white/5"
+          className="mb-10 sm:mb-16 pb-4 sm:pb-6 flex items-end justify-between border-b border-white/5"
         >
           <div className="flex items-center gap-3">
-            <span className="h-8 w-1 bg-[#e50914] rounded-full"></span>
-            <h2 className="text-3xl md:text-5xl font-display font-extrabold text-white uppercase tracking-tight">Skills</h2>
+            <span className="h-6 sm:h-8 w-1 bg-[#e50914] rounded-full"></span>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-extrabold text-white uppercase tracking-tight">Skills</h2>
           </div>
-          <span className="text-xs tracking-wider text-white/40 uppercase font-sans font-bold hidden md:block">Toolkit</span>
+          <span className="text-[11px] sm:text-xs tracking-wider text-white/40 uppercase font-sans font-bold hidden sm:block">Toolkit</span>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={idx}
@@ -30,12 +30,12 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05 }}
-              className="bg-[#181818]/85 border border-white/5 p-8 rounded hover:border-[#e50914]/50 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(229,9,20,0.08)] group"
+              className="bg-[#181818]/85 border border-white/5 p-5 sm:p-8 rounded-lg hover:border-[#e50914]/50 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(229,9,20,0.08)] group"
             >
-              <h3 className="text-lg font-display font-extrabold text-white uppercase mb-4 tracking-tight group-hover:text-[#e50914] transition-colors duration-200">
+              <h3 className="text-base sm:text-lg font-display font-extrabold text-white uppercase mb-3 sm:mb-4 tracking-tight group-hover:text-[#e50914] transition-colors duration-200">
                 {category.title}
               </h3>
-              <p className="text-[#a3a3a3] font-sans text-sm md:text-base leading-relaxed">
+              <p className="text-[#a3a3a3] font-sans text-xs sm:text-sm md:text-base leading-relaxed">
                 {category.skills}
               </p>
             </motion.div>
@@ -47,4 +47,3 @@ const Skills = () => {
 };
 
 export default Skills;
-

@@ -387,7 +387,7 @@ const AdminPage = () => {
     setScanProgressStep('4/4: 💾 Saving JSON structure to history & activating link...');
     await delay(500);
 
-    const created = savePortfolioVersion(
+    const created = await savePortfolioVersion(
       parsedPortfolioData,
       jobTitleTag.trim() || `Portfolio (${cleanSlug})`,
       cleanSlug,
@@ -403,28 +403,28 @@ const AdminPage = () => {
   return (
     <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col">
       {/* Top Admin Header */}
-      <header className="bg-[#181818] border-b border-white/10 px-6 py-4 flex items-center justify-between shadow-md">
+      <header className="bg-[#181818] border-b border-white/10 px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-[#e50914]/20 border border-[#e50914]/40 flex items-center justify-center text-[#e50914] font-bold">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#e50914]/20 border border-[#e50914]/40 flex items-center justify-center text-[#e50914] font-bold text-sm">
             ⚙️
           </div>
           <div>
-            <h1 className="text-xl font-extrabold tracking-tight">Portfolio Admin Panel</h1>
-            <p className="text-xs text-white/50">Generate & Manage Custom Resume Portfolio Links</p>
+            <h1 className="text-lg sm:text-xl font-extrabold tracking-tight">Portfolio Admin Panel</h1>
+            <p className="text-[11px] sm:text-xs text-white/50">Generate & Manage Custom Resume Portfolio Links</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 self-end sm:self-auto">
           <button
             onClick={() => navigateTo('/')}
-            className="text-xs bg-white/10 hover:bg-white/20 text-white px-3.5 py-2 rounded-lg transition"
+            className="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg transition"
           >
             ← Public Website
           </button>
           {isAdminLoggedIn && (
             <button
               onClick={logoutAdmin}
-              className="text-xs bg-[#e50914]/20 hover:bg-[#e50914] text-[#e50914] hover:text-white border border-[#e50914]/40 px-3.5 py-2 rounded-lg transition font-semibold"
+              className="text-xs bg-[#e50914]/20 hover:bg-[#e50914] text-[#e50914] hover:text-white border border-[#e50914]/40 px-3 py-2 rounded-lg transition font-semibold"
             >
               Logout
             </button>
@@ -433,12 +433,12 @@ const AdminPage = () => {
       </header>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-5xl w-full mx-auto p-4 md:p-8">
+      <main className="flex-1 max-w-5xl w-full mx-auto p-3 sm:p-6 md:p-8">
         {!isAdminLoggedIn ? (
           /* LOGIN FORM */
-          <div className="max-w-md mx-auto my-16 bg-[#181818] border border-white/10 rounded-xl p-8 shadow-2xl">
+          <div className="max-w-md mx-auto my-8 sm:my-16 bg-[#181818] border border-white/10 rounded-xl p-6 sm:p-8 shadow-2xl">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-extrabold mb-2">Admin Login</h2>
+              <h2 className="text-xl sm:text-2xl font-extrabold mb-2">Admin Login</h2>
               <p className="text-xs text-white/60">Enter password to manage portfolio links.</p>
             </div>
 
@@ -473,26 +473,26 @@ const AdminPage = () => {
           /* DASHBOARD */
           <div className="bg-[#181818] border border-white/10 rounded-xl overflow-hidden shadow-2xl flex flex-col">
             {/* Tabs Header */}
-            <div className="flex border-b border-white/10 bg-[#141414] px-6">
+            <div className="flex border-b border-white/10 bg-[#141414] px-3 sm:px-6 overflow-x-auto">
               <button
                 onClick={() => setActiveTab('generator')}
-                className={`py-4 px-6 text-xs font-extrabold uppercase tracking-wider border-b-2 transition ${
+                className={`py-3.5 sm:py-4 px-3 sm:px-6 text-[11px] sm:text-xs font-extrabold uppercase tracking-wider border-b-2 transition whitespace-nowrap ${
                   activeTab === 'generator'
                     ? 'border-[#e50914] text-[#e50914]'
                     : 'border-transparent text-white/60 hover:text-white'
                 }`}
               >
-                ⚡ Create New Resume Link
+                ⚡ Create New Link
               </button>
               <button
                 onClick={() => setActiveTab('history')}
-                className={`py-4 px-6 text-xs font-extrabold uppercase tracking-wider border-b-2 transition flex items-center gap-2 ${
+                className={`py-3.5 sm:py-4 px-3 sm:px-6 text-[11px] sm:text-xs font-extrabold uppercase tracking-wider border-b-2 transition flex items-center gap-2 whitespace-nowrap ${
                   activeTab === 'history'
                     ? 'border-[#e50914] text-[#e50914]'
                     : 'border-transparent text-white/60 hover:text-white'
                 }`}
               >
-                🔗 Active Links History
+                🔗 Active Links
                 <span className="bg-[#e50914]/20 text-[#e50914] text-[10px] px-2 py-0.5 rounded-full font-black">
                   {history.length}
                 </span>
@@ -500,16 +500,16 @@ const AdminPage = () => {
             </div>
 
             {/* Tab Body */}
-            <div className="p-6 md:p-8 space-y-6">
+            <div className="p-4 sm:p-6 md:p-8 space-y-6">
               {activeTab === 'generator' ? (
-                <form onSubmit={handleGeneratePortfolio} className="space-y-6">
+                <form onSubmit={handleGeneratePortfolio} className="space-y-4 sm:space-y-6">
                   
                   {/* Scanning Progress Banner */}
                   {isProcessing && (
-                    <div className="bg-[#e50914]/15 border border-[#e50914]/40 p-5 rounded-xl space-y-3 animate-pulse">
+                    <div className="bg-[#e50914]/15 border border-[#e50914]/40 p-4 sm:p-5 rounded-xl space-y-2.5 animate-pulse">
                       <div className="flex items-center gap-3">
                         <div className="w-5 h-5 border-2 border-t-transparent border-[#e50914] rounded-full animate-spin"></div>
-                        <span className="text-[#e50914] font-extrabold text-sm uppercase tracking-wider">
+                        <span className="text-[#e50914] font-extrabold text-xs sm:text-sm uppercase tracking-wider">
                           Scanning & Generating Resume Link...
                         </span>
                       </div>
@@ -521,49 +521,51 @@ const AdminPage = () => {
 
                   {/* Generated Success Alert */}
                   {generatedSuccessUrl && !isProcessing && (
-                    <div className="bg-emerald-500/15 border border-emerald-500/40 p-5 rounded-xl space-y-3 shadow-lg">
+                    <div className="bg-emerald-500/15 border border-emerald-500/40 p-4 sm:p-5 rounded-xl space-y-3 shadow-lg">
                       <div className="flex items-center justify-between">
-                        <span className="text-emerald-400 font-extrabold text-sm flex items-center gap-2">
-                          <span>🎉</span> Link Generated & Content Scanned Successfully!
+                        <span className="text-emerald-400 font-extrabold text-xs sm:text-sm flex items-center gap-1.5">
+                          <span>🎉</span> Link Generated Successfully!
                         </span>
                         <button
                           type="button"
                           onClick={() => setGeneratedSuccessUrl('')}
-                          className="text-white/50 hover:text-white text-xs"
+                          className="text-white/50 hover:text-white text-xs p-1"
                         >
                           ✕
                         </button>
                       </div>
-                      <div className="flex items-center gap-2 bg-black/50 p-3 rounded-lg border border-white/10">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-black/50 p-2.5 sm:p-3 rounded-lg border border-white/10">
                         <input
                           type="text"
                           readOnly
                           value={generatedSuccessUrl}
-                          className="bg-transparent text-xs font-mono text-emerald-300 font-bold flex-1 outline-none select-all"
+                          className="bg-transparent text-xs font-mono text-emerald-300 font-bold flex-1 outline-none select-all p-1"
                         />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard.writeText(generatedSuccessUrl);
-                            alert(`Copied link to clipboard:\n${generatedSuccessUrl}`);
-                          }}
-                          className="bg-emerald-500 text-black font-extrabold text-xs px-4 py-2 rounded-lg hover:bg-emerald-400 transition"
-                        >
-                          Copy Link
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => navigateTo(slugInput)}
-                          className="bg-white/20 text-white font-extrabold text-xs px-4 py-2 rounded-lg hover:bg-white/30 transition"
-                        >
-                          Preview Website ↗
-                        </button>
+                        <div className="flex gap-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              navigator.clipboard.writeText(generatedSuccessUrl);
+                              alert(`Copied link to clipboard:\n${generatedSuccessUrl}`);
+                            }}
+                            className="flex-1 sm:flex-none bg-emerald-500 text-black font-extrabold text-xs px-3 sm:px-4 py-2 rounded-lg hover:bg-emerald-400 transition"
+                          >
+                            Copy Link
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => navigateTo(slugInput)}
+                            className="flex-1 sm:flex-none bg-white/20 text-white font-extrabold text-xs px-3 sm:px-4 py-2 rounded-lg hover:bg-white/30 transition text-center"
+                          >
+                            Preview ↗
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
 
                   {/* Field 1 & 2: Route Slug & Target Label */}
-                  <div className="grid md:grid-cols-2 gap-6 bg-[#202020] p-6 rounded-xl border border-white/5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 bg-[#202020] p-4 sm:p-6 rounded-xl border border-white/5">
                     <div>
                       <label className="block text-xs font-extrabold uppercase tracking-wider text-[#e50914] mb-2">
                         1. Custom Link Name (URL Slug) *
@@ -579,8 +581,8 @@ const AdminPage = () => {
                           required
                         />
                       </div>
-                      <span className="text-[11px] text-white/40 mt-1.5 block">
-                        Link URL: <strong className="text-white">{window.location.origin}/Portfolio/{(slugInput || 'resume1').trim()}</strong>
+                      <span className="text-[11px] text-white/40 mt-1.5 block break-all">
+                        Link: <strong className="text-white">{window.location.origin}/Portfolio/{(slugInput || 'resume1').trim()}</strong>
                       </span>
                     </div>
 
@@ -602,7 +604,7 @@ const AdminPage = () => {
                   </div>
 
                   {/* Field 3: Upload Resume File */}
-                  <div className="bg-[#202020] p-6 rounded-xl border border-white/5">
+                  <div className="bg-[#202020] p-4 sm:p-6 rounded-xl border border-white/5">
                     <label className="block text-xs font-extrabold uppercase tracking-wider text-[#e50914] mb-2">
                       3. Upload Resume File (PDF / TXT / JSON) *
                     </label>
@@ -610,7 +612,7 @@ const AdminPage = () => {
                       type="file"
                       accept=".pdf,.txt,.json"
                       onChange={(e) => setSelectedFile(e.target.files[0] || null)}
-                      className="w-full text-xs text-white/70 file:mr-3 file:py-2.5 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-[#e50914] file:text-white hover:file:bg-[#b20710] cursor-pointer"
+                      className="w-full text-xs text-white/70 file:mr-3 file:py-2.5 file:px-3 sm:file:px-4 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-[#e50914] file:text-white hover:file:bg-[#b20710] cursor-pointer"
                       required
                     />
                     {selectedFile && (
@@ -625,7 +627,7 @@ const AdminPage = () => {
                     <button
                       type="submit"
                       disabled={isProcessing || !selectedFile}
-                      className="px-8 py-3.5 bg-[#e50914] hover:bg-[#b20710] disabled:bg-white/20 text-xs font-extrabold uppercase tracking-wider rounded-lg text-white shadow-xl transition"
+                      className="w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-[#e50914] hover:bg-[#b20710] disabled:bg-white/20 text-xs font-extrabold uppercase tracking-wider rounded-lg text-white shadow-xl transition text-center"
                     >
                       {isProcessing ? '⏳ Scanning Resume...' : `🚀 Scan & Generate Link: /Portfolio/${(slugInput || 'resume1').trim()}`}
                     </button>
@@ -634,30 +636,30 @@ const AdminPage = () => {
               ) : (
                 /* HISTORY TAB */
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-2">
                     <div>
-                      <h3 className="text-base font-extrabold text-white">Active Generated Resume Links</h3>
-                      <p className="text-xs text-white/50">All links below are active concurrently and can be shared with recruiters.</p>
+                      <h3 className="text-sm sm:text-base font-extrabold text-white">Active Generated Resume Links</h3>
+                      <p className="text-[11px] sm:text-xs text-white/50">All links below are active concurrently and can be shared with recruiters.</p>
                     </div>
                     <button
                       onClick={() => {
                         setSlugInput(`resume${history.length + 1}`);
                         setActiveTab('generator');
                       }}
-                      className="bg-[#e50914] hover:bg-[#b20710] text-white text-xs font-bold px-3 py-2 rounded-lg transition"
+                      className="bg-[#e50914] hover:bg-[#b20710] text-white text-xs font-bold px-3 py-2 rounded-lg transition self-stretch sm:self-auto text-center"
                     >
                       + Create New Link
                     </button>
                   </div>
 
                   {history.length === 0 ? (
-                    <div className="text-center py-16 bg-[#202020] rounded-xl border border-white/5">
+                    <div className="text-center py-12 sm:py-16 bg-[#202020] rounded-xl border border-white/5 p-4">
                       <p className="text-sm text-white/60 mb-3">No active resume links generated yet.</p>
                       <button
                         onClick={() => setActiveTab('generator')}
                         className="text-xs bg-[#e50914] text-white font-bold px-4 py-2 rounded-lg hover:bg-[#b20710] transition"
                       >
-                        + Create Your First Link (e.g. /Portfolio/resume1)
+                        + Create Your First Link
                       </button>
                     </div>
                   ) : (
@@ -668,40 +670,40 @@ const AdminPage = () => {
                         return (
                           <div
                             key={item.id}
-                            className="bg-[#202020] border border-white/5 hover:border-white/20 p-5 rounded-xl transition flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md"
+                            className="bg-[#202020] border border-white/5 hover:border-white/20 p-4 sm:p-5 rounded-xl transition flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md"
                           >
                             <div className="space-y-1.5 flex-1">
-                              <div className="flex items-center gap-2">
+                              <div className="flex flex-wrap items-center gap-2">
                                 <span className="bg-[#e50914]/20 border border-[#e50914]/40 text-[#e50914] font-mono text-xs px-2.5 py-0.5 rounded-md font-bold">
                                   /Portfolio/{item.slug || item.id}
                                 </span>
-                                <h4 className="font-bold text-sm text-white">{item.name}</h4>
+                                <h4 className="font-bold text-xs sm:text-sm text-white">{item.name}</h4>
                               </div>
 
-                              <p className="text-xs font-mono text-emerald-400 select-all">
+                              <p className="text-xs font-mono text-emerald-400 select-all break-all">
                                 {linkUrl}
                               </p>
 
-                              <div className="flex items-center gap-3 text-[11px] text-white/40">
-                                <span>Created: {new Date(item.createdAt).toLocaleString()}</span>
+                              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-white/40">
+                                <span>Created: {new Date(item.createdAt).toLocaleDateString()}</span>
                                 <span>• File: {item.pdfFileName}</span>
                               </div>
                             </div>
 
-                            <div className="flex items-center gap-2 flex-wrap">
+                            <div className="flex items-center gap-2 flex-wrap pt-2 md:pt-0 border-t md:border-t-0 border-white/5">
                               <button
                                 onClick={() => {
                                   navigator.clipboard.writeText(linkUrl);
                                   alert(`Copied link to clipboard:\n${linkUrl}`);
                                 }}
-                                className="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 px-3 py-2 rounded-lg font-bold transition flex items-center gap-1.5"
+                                className="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 px-3 py-1.5 sm:py-2 rounded-lg font-bold transition flex items-center gap-1.5 flex-1 sm:flex-none justify-center"
                               >
                                 🔗 Copy Link
                               </button>
 
                               <button
                                 onClick={() => navigateTo(item.slug || item.id)}
-                                className="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg font-semibold transition"
+                                className="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 sm:py-2 rounded-lg font-semibold transition flex-1 sm:flex-none justify-center text-center"
                               >
                                 👁️ Preview
                               </button>
@@ -711,9 +713,9 @@ const AdminPage = () => {
                                   setDefaultVersion(item.id);
                                   alert(`"/Portfolio/${item.slug || item.id}" set as default for root /Portfolio/ path.`);
                                 }}
-                                className="text-xs bg-[#e50914]/20 hover:bg-[#e50914] text-[#e50914] hover:text-white border border-[#e50914]/40 px-3 py-2 rounded-lg font-semibold transition"
+                                className="text-xs bg-[#e50914]/20 hover:bg-[#e50914] text-[#e50914] hover:text-white border border-[#e50914]/40 px-3 py-1.5 sm:py-2 rounded-lg font-semibold transition flex-1 sm:flex-none justify-center text-center"
                               >
-                                ⭐ Make Root Default
+                                ⭐ Make Default
                               </button>
 
                               <button
