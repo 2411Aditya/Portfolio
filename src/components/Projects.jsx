@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
-import resumeData from '../data/resumeData.json';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Projects = () => {
-  const { projects } = resumeData;
+  const { currentPortfolio } = usePortfolio();
+  const projects = currentPortfolio?.projects || [];
 
   return (
     <section id="projects" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">

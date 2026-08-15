@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: portfolio-admin-backend
+    runtime: node
+    buildCommand: echo "No build needed"
+    startCommand: node server.cjs
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+    disk:
+      name: portfolio-data
+      mountPath: /opt/render/project/src/portfolio-data
+      sizeGB: 1

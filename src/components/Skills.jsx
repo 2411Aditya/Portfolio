@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
-import resumeData from '../data/resumeData.json';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Skills = () => {
-  const { skills: skillCategories } = resumeData;
+  const { currentPortfolio } = usePortfolio();
+  const skillCategories = currentPortfolio?.skills || [];
 
   return (
     <section id="skills" className="py-24 relative px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">

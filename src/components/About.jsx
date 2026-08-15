@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import resumeData from '../data/resumeData.json';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const About = () => {
-  const { about } = resumeData;
+  const { currentPortfolio } = usePortfolio();
+  const about = currentPortfolio?.about || { paragraphs: [], coreCompetencies: [] };
 
   return (
     <section id="about" className="relative px-[1.5rem] md:px-[4rem] py-24 bg-[#141414]/85">

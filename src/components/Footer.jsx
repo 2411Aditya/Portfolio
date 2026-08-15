@@ -1,8 +1,9 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import resumeData from '../data/resumeData.json';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Footer = () => {
-  const { personalInfo } = resumeData;
+  const { currentPortfolio } = usePortfolio();
+  const personalInfo = currentPortfolio?.personalInfo || {};
 
   return (
     <footer className="py-16 px-[1.5rem] md:px-[4rem] border-t border-white/5 bg-[#141414]/85 relative z-10">

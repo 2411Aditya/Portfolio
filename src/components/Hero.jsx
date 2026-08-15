@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import resumeData from '../data/resumeData.json';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Hero = () => {
   const [theme, setTheme] = useState('dark');
-  const { personalInfo } = resumeData;
+  const { currentPortfolio } = usePortfolio();
+  const personalInfo = currentPortfolio?.personalInfo || {};
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -86,7 +87,7 @@ const Hero = () => {
           <a href="#about" className="btn-info uppercase">
             About
           </a>
-          <a href={`${import.meta.env.BASE_URL}${personalInfo.pdfFile}`} target="_blank" rel="noreferrer" download={personalInfo.pdfDownloadName} className="btn-info bg-white/10 hover:bg-white/20 border border-white/15 uppercase">
+          <a href={personalInfo.pdfDataUrl || `${import.meta.env.BASE_URL}${personalInfo.pdfFile}`} target="_blank" rel="noreferrer" download={personalInfo.pdfDownloadName || personalInfo.pdfFile || "Aditya_Kulkarni_Resume.pdf"} className="btn-info bg-white/10 hover:bg-white/20 border border-white/15 uppercase">
             Download Resume
           </a>
         </motion.div>

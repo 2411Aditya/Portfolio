@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
-import resumeData from '../data/resumeData.json';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Experience = () => {
-  const { experience, education } = resumeData;
+  const { currentPortfolio } = usePortfolio();
+  const experience = currentPortfolio?.experience || [];
+  const education = currentPortfolio?.education || [];
 
   return (
     <section id="experience" className="py-24 px-[1.5rem] md:px-[4rem] bg-[#141414]/85 border-t border-white/5">
