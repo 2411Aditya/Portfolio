@@ -116,6 +116,11 @@ app.delete('/api/portfolio/:id', (req, res) => {
   res.json({ success: true });
 });
 
+// GET /api/ping - Keep-alive endpoint (called every 10 min by frontend to prevent Render sleep)
+app.get('/api/ping', (req, res) => {
+  res.json({ ok: true, ts: Date.now() });
+});
+
 app.listen(PORT, () => {
   console.log(`\n🚀 Portfolio Backend running at http://localhost:${PORT}`);
   console.log(`📁 Data stored at: ${DATA_DIR}`);

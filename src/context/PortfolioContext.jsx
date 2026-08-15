@@ -115,6 +115,16 @@ export const PortfolioProvider = ({ children }) => {
     fetchHistory();
   }, [fetchHistory]);
 
+  // Keep Render backend alive — silent ping every 10 minutes
+  useEffect(() => {
+    const ping = () => {
+      fetch(`${API_BASE.replace('/portfolio', '')}/ping`).catch(() => {});
+    };
+    ping(); // ping immediately on load
+    const interval = setInterval(ping, 10 * 60 * 1000); // every 10 minutes
+    return () => clearInterval(interval);
+  }, []);
+
   // Listen for browser back/forward navigation
   useEffect(() => {
     const handlePopState = () => {
