@@ -25,7 +25,17 @@ if (!fs.existsSync(HISTORY_FILE)) {
   fs.writeFileSync(HISTORY_FILE, JSON.stringify([], null, 2));
 }
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://2411aditya.github.io',
+    'http://localhost:5173',
+    'http://localhost:3001',
+    'http://localhost:4173'
+  ],
+  methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+}));
+
 app.use(express.json({ limit: '50mb' })); // Large limit for PDF data URLs
 
 // Helper: Read history
