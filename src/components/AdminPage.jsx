@@ -49,7 +49,37 @@ const AdminPage = () => {
     }
   };
 
-  // PDF.js Line-by-Line Text Extractor
+  // Intelligent Text Normalizer for PDFs
+  const normalizeExtractedText = (str) => {
+    if (!str || typeof str !== 'string') return '';
+    return str
+      // Fix broken words split by intra-word spaces (e.g. "clo u d" -> "cloud", "c l o u d" -> "cloud")
+      .replace(/\bclo\s*u\s*d\b/gi, 'cloud')
+      .replace(/\bc\s*l\s*o\s*u\s*d\b/gi, 'cloud')
+      .replace(/\bd\s*a\s*t\s*a\b/gi, 'data')
+      .replace(/\bA\s*W\s*S\b/g, 'AWS')
+      .replace(/\bA\s*I\b/g, 'AI')
+      .replace(/\bD\s*S\b/g, 'DS')
+      .replace(/\bM\s*L\b/g, 'ML')
+      .replace(/\bN\s*L\s*P\b/g, 'NLP')
+      .replace(/\bL\s*L\s*M\s*s?\b/gi, 'LLMs')
+      .replace(/\bR\s*A\s*G\b/g, 'RAG')
+      .replace(/\bS\s*Q\s*L\b/g, 'SQL')
+      .replace(/\bP\s*y\s*T\s*o\s*r\s*c\s*h\b/gi, 'PyTorch')
+      .replace(/\bF\s*a\s*s\s*t\s*A\s*P\s*I\b/gi, 'FastAPI')
+      .replace(/\bL\s*a\s*n\s*g\s*C\s*h\s*a\s*i\s*n\b/gi, 'LangChain')
+      .replace(/\bP\s*o\s*s\s*t\s*m\s*a\s*n\b/gi, 'Postman')
+      .replace(/\bM\s*y\s*S\s*Q\s*L\b/gi, 'MySQL')
+      // Fix hyphenated compound words: "hands - on" -> "hands-on", "full - stack" -> "full-stack", "production - ready" -> "production-ready"
+      .replace(/([a-zA-Z0-9]+)\s*[-–—]\s*([a-zA-Z0-9]+)/g, '$1-$2')
+      // Fix spaces before punctuation (e.g. "deployments ," -> "deployments,")
+      .replace(/\s+([,.:;?!%])/g, '$1')
+      // Clean multiple spaces
+      .replace(/[ \t]{2,}/g, ' ')
+      .trim();
+  };
+
+  // PDF.js Line-by-Line Text Extractor with Glyph Kerning Awareness
   const extractPdfText = async (arrayBuffer) => {
     try {
       const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) });
@@ -61,28 +91,44 @@ const AdminPage = () => {
         const textContent = await page.getTextContent();
         
         let lastY = null;
+        let lastX = null;
+        let lastWidth = null;
         const pageLines = [];
         let currentLine = '';
 
         for (const item of textContent.items) {
+          const x = item.transform ? item.transform[4] : null;
           const y = item.transform ? Math.round(item.transform[5]) : null;
+          const width = item.width || 0;
+
           if (lastY !== null && y !== null && Math.abs(y - lastY) > 3) {
             if (currentLine.trim()) {
-              pageLines.push(currentLine.trim());
+              pageLines.push(normalizeExtractedText(currentLine));
             }
             currentLine = item.str;
           } else {
-            currentLine += (currentLine && !currentLine.endsWith(' ') ? ' ' : '') + item.str;
+            if (lastX !== null && lastWidth !== null && x !== null) {
+              const gap = x - (lastX + lastWidth);
+              // Only insert space if gap between characters is significant (> 1.5px)
+              if (gap > 1.5 && !currentLine.endsWith(' ') && !item.str.startsWith(' ')) {
+                currentLine += ' ';
+              }
+            } else if (currentLine && !currentLine.endsWith(' ') && !item.str.startsWith(' ')) {
+              currentLine += ' ';
+            }
+            currentLine += item.str;
           }
           if (y !== null) lastY = y;
+          if (x !== null) lastX = x;
+          lastWidth = width;
         }
         if (currentLine.trim()) {
-          pageLines.push(currentLine.trim());
+          pageLines.push(normalizeExtractedText(currentLine));
         }
 
         fullText += pageLines.join('\n') + '\n';
       }
-      return fullText;
+      return normalizeExtractedText(fullText);
     } catch (err) {
       console.error("PDF extraction error:", err);
       return '';
@@ -130,7 +176,7 @@ const AdminPage = () => {
     // 1. Summary / Bio Parsing
     const summaryText = getSectionText(/(?:SUMMARY|PROFILE|OBJECTIVE|ABOUT ME)\b/i, nextSectionPattern);
     if (summaryText && summaryText.length > 15) {
-      const bioStr = summaryText.replace(/\n/g, ' ').trim();
+      const bioStr = normalizeExtractedText(summaryText.replace(/\n/g, ' '));
       base.personalInfo.bio = bioStr;
       base.about.paragraphs = [bioStr];
     }
@@ -190,8 +236,8 @@ const AdminPage = () => {
       sLines.forEach(l => {
         if (l.includes(':')) {
           const parts = l.split(':');
-          const cat = parts[0].trim();
-          const val = parts.slice(1).join(':').trim();
+          const cat = normalizeExtractedText(parts[0]);
+          const val = normalizeExtractedText(parts.slice(1).join(':'));
           if (cat && val) {
             parsedSkills.push({ title: cat, skills: val });
             coreComps.push(cat);
@@ -249,7 +295,7 @@ const AdminPage = () => {
       });
 
       if (currentLabel && currentText) {
-        highlights.push({ label: currentLabel, text: currentText.trim() });
+        highlights.push({ label: normalizeExtractedText(currentLabel), text: normalizeExtractedText(currentText) });
       }
 
       base.experience = [
