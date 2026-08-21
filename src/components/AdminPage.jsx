@@ -93,9 +93,10 @@ const AdminPage = () => {
   const parseResumeTextToStructure = (rawText, fileName = '', fileDataUrl = '') => {
     const base = JSON.parse(JSON.stringify(defaultResumeData));
 
-    // Ensure First & Last name are clean (ADITYA KULKARNI)
+    // Ensure First & Last name are clean (ADITYA KULKARNI) and no roles tags
     base.personalInfo.firstName = "ADITYA";
     base.personalInfo.lastName = "KULKARNI";
+    delete base.personalInfo.roles;
 
     if (fileName) {
       base.personalInfo.pdfFile = fileName;
@@ -357,6 +358,7 @@ const AdminPage = () => {
         parsedPortfolioData.personalInfo.pdfFile = selectedFile.name;
         parsedPortfolioData.personalInfo.firstName = "ADITYA";
         parsedPortfolioData.personalInfo.lastName = "KULKARNI";
+        delete parsedPortfolioData.personalInfo.roles;
       } catch (err) {
         console.error("JSON parse error", err);
       }
