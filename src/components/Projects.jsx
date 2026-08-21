@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
 import { usePortfolio } from '../context/PortfolioContext';
+import { cleanText } from '../utils/textCleaner';
 
 const Projects = () => {
   const { currentPortfolio } = usePortfolio();
@@ -38,7 +39,7 @@ const Projects = () => {
                 <div className="absolute top-0 left-0 w-full h-[3px] bg-[#e50914]" />
                 <div className="z-10 text-center flex flex-col gap-2 items-center px-2">
                   <h4 className="text-xs sm:text-sm md:text-base font-display font-extrabold text-white uppercase tracking-wide leading-snug max-w-[280px]">
-                    {project.title}
+                    {cleanText(project.title)}
                   </h4>
                 </div>
               </div>
@@ -59,13 +60,13 @@ const Projects = () => {
                     </a>
                   </div>
                   <p className="text-xs sm:text-sm text-[#a3a3a3] leading-relaxed mb-5 font-sans">
-                    {project.description}
+                    {cleanText(project.description)}
                   </p>
                 </div>
 
                 <div className="flex flex-wrap gap-2 text-[10px] sm:text-xs text-white/50 uppercase font-sans font-bold pt-4 border-t border-white/5">
                   {project.techStack?.map((tech, i) => (
-                    <span key={i} className="after:content-['•'] after:ml-2 last:after:content-none">{tech}</span>
+                    <span key={i} className="after:content-['•'] after:ml-2 last:after:content-none">{cleanText(tech)}</span>
                   ))}
                 </div>
               </div>

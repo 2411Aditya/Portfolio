@@ -308,34 +308,42 @@ const AdminPage = () => {
       ];
     }
 
-    // 5. Projects Parsing (Preserves complete descriptions & tech stacks)
+    // 5. Projects Parsing (Preserves complete descriptions & tech stacks for all 3 projects)
     const projText = getSectionText(/(?:PROJECTS|KEY PROJECTS)\b/i, nextSectionPattern);
     if (projText) {
-      const proj1 = projText.includes("Legal") || projText.includes("Translation");
-      const proj2 = projText.includes("Candlestick") || projText.includes("Predictor");
-      const proj3 = projText.includes("Knowledge") || projText.includes("RAG");
+      const projCandle = projText.includes("Candlestick") || projText.includes("Predictor");
+      const projLegal = projText.includes("Legal") || projText.includes("Translation");
+      const projSmartSip = projText.includes("Smart-SIP") || projText.includes("Smart - SIP") || projText.includes("NAV") || projText.includes("Investment");
+      const projRag = projText.includes("Knowledge") || projText.includes("RAG");
 
       const projects = [];
 
-      if (proj1) {
+      if (projCandle) {
         projects.push({
-          title: "AI-Powered Legal Document Translation",
-          description: "Fine-tuned Sarvam LLM locally over a large-scale legal corpus to achieve high domain terminology accuracy. Utilized PyMuPDF for document parsing and implemented structured outputs to preserve complex legal formatting. Conducted validation of legal terminology to ensure outputs met strict structural and governance accuracy standards.",
-          techStack: ["Python", "Flask", "NLP"],
-          github: "https://github.com/Akshada2411/AI-Powered-legal-translator"
-        });
-      }
-
-      if (proj2) {
-        projects.push({
-          title: "Automated Candlestick Predictor (Predictive Engine)",
-          description: "Engineered an end-to-end predictive pipeline harvesting real-time market data from Angel One SmartAPI via WebSockets. Built a PyTorch-based LSTM neural network analyzing sequence patterns of 60+ previous candles to forecast price returns. Configured GitHub Actions for continuous inference/ingestion, updating live data on Google Sheets and rendering 'Ghost Candle' forecasts on a React dashboard.",
-          techStack: ["PyTorch", "FastAPI", "React"],
+          title: "Automated Candlestick Predictor (Financial Data Engine)",
+          description: "Engineered an automated data pipeline harvesting real-time market transactions, trades, and securities data from Angel One SmartAPI via WebSockets. Integrated automated diagnostic checks and data anomaly handling, processing 1,000+ daily market events with 99.9% pipeline uptime. Implemented a PyTorch LSTM model analyzing 60-interval sequential time-series patterns, exposing predictive metrics through RESTful endpoints.",
+          techStack: ["PyTorch", "FastAPI", "React", "REST APIs"],
           github: "https://github.com/2411Aditya/Candlestick-predictor"
         });
       }
 
-      if (proj3) {
+      if (projLegal) {
+        projects.push({
+          title: "AI-Powered Legal Document Translation System",
+          description: "Fine-tuned the Sarvam LLM locally on legal corpora to achieve high accuracy in specialized domain terminology and document interpretation. Built REST API endpoints for document ingestion and validated structured JSON responses across 150+ legal records with 98% formatting accuracy. Developed parsing scripts using PyMuPDF to extract, clean, and validate intricate document schemas, maintaining strict structural compliance.",
+          techStack: ["Python", "Flask", "REST APIs", "NLP"],
+          github: "https://github.com/Akshada2411/AI-Powered-legal-translator"
+        });
+      }
+
+      if (projSmartSip) {
+        projects.push({
+          title: "Smart-SIP (Automated Investment & NAV Prediction Pipeline)",
+          description: "Engineered an automated mutual fund data pipeline fetching live and historical Net Asset Value (NAV) records into structured database tables. Developed a predictive machine learning engine with automated retraining schedules to optimize SIP timing based on time-series trend features. Built an automated alerting notification system to trigger investment signals and flag transaction schedule anomalies.",
+          techStack: ["Python", "SQLite", "Machine Learning"],
+          github: "https://github.com/2411Aditya/Smart-SIP-Automated-Investment-Pipeline"
+        });
+      } else if (projRag) {
         projects.push({
           title: "Intelligent Knowledge Assistant (RAG Pipeline)",
           description: "Built a Retrieval-Augmented Generation (RAG) system using LangChain and Vector Databases to perform semantic queries over private datasets. Integrated evaluation metrics to flag hallucinations and verify response relevance following secure AI engineering principles.",

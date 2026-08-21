@@ -53,33 +53,36 @@
   ],
   "projects": [
     {
-      "title": "AI-Powered Legal Document Translation",
-      "description": "Fine-tuned the Sarvam LLM locally on legal corpora to achieve high accuracy in specialized legal domain phrasing. Utilized PyMuPDF for document parsing and integrated REST endpoints delivering structured JSON outputs across 150+ test documents. Engineered validation scripts ensuring outputs maintained 98% structural compliance with strict formatting standards.",
+      "title": "Automated Candlestick Predictor (Financial Data Engine)",
+      "description": "Engineered an automated data pipeline harvesting real-time market transactions, trades, and securities data from Angel One SmartAPI via WebSockets. Integrated automated diagnostic checks and data anomaly handling, processing 1,000+ daily market events with 99.9% pipeline uptime. Implemented a PyTorch LSTM model analyzing 60-interval sequential time-series patterns, exposing predictive metrics through RESTful endpoints.",
+      "techStack": [
+        "PyTorch",
+        "FastAPI",
+        "React",
+        "REST APIs"
+      ],
+      "github": "https://github.com/2411Aditya/Candlestick-predictor"
+    },
+    {
+      "title": "AI-Powered Legal Document Translation System",
+      "description": "Fine-tuned the Sarvam LLM locally on legal corpora to achieve high accuracy in specialized domain terminology and document interpretation. Built REST API endpoints for document ingestion and validated structured JSON responses across 150+ legal records with 98% formatting accuracy. Developed parsing scripts using PyMuPDF to extract, clean, and validate intricate document schemas, maintaining strict structural compliance.",
       "techStack": [
         "Python",
         "Flask",
+        "REST APIs",
         "NLP"
       ],
       "github": "https://github.com/Akshada2411/AI-Powered-legal-translator"
     },
     {
-      "title": "Automated Candlestick Predictor (Predictive Engine)",
-      "description": "Built a real-time predictive pipeline processing over 1,000 daily market data events via WebSockets with 99.9% uptime. Engineered a PyTorch-based LSTM model analyzing sequential time-series patterns across 60-candle windows to forecast price returns. Configured GitHub Actions cron triggers for automated inference execution and live dashboard telemetry updates.",
+      "title": "Smart-SIP (Automated Investment & NAV Prediction Pipeline)",
+      "description": "Engineered an automated mutual fund data pipeline fetching live and historical Net Asset Value (NAV) records into structured database tables. Developed a predictive machine learning engine with automated retraining schedules to optimize SIP timing based on time-series trend features. Built an automated alerting notification system to trigger investment signals and flag transaction schedule anomalies.",
       "techStack": [
-        "PyTorch",
-        "FastAPI",
-        "React"
+        "Python",
+        "SQLite",
+        "Machine Learning"
       ],
-      "github": "https://github.com/2411Aditya/Candlestick-predictor"
-    },
-    {
-      "title": "Intelligent Knowledge Assistant (RAG Pipeline)",
-      "description": "Designed a Retrieval-Augmented Generation (RAG) system using LangChain and Vector Databases for rapid semantic query processing across private datasets. Implemented automated evaluation metrics that reduced hallucination rates by 30% and verified query output reliability.",
-      "techStack": [
-        "LangChain",
-        "Vector DB"
-      ],
-      "github": "https://github.com/2411Aditya/Intelligent-Knowledge-Assistant-RAG"
+      "github": "https://github.com/2411Aditya/Smart-SIP-Automated-Investment-Pipeline"
     }
   ],
   "experience": [
