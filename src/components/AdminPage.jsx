@@ -308,52 +308,120 @@ const AdminPage = () => {
       ];
     }
 
-    // 5. Projects Parsing (Preserves complete descriptions & tech stacks for all 3 projects)
-    const projText = getSectionText(/(?:PROJECTS|KEY PROJECTS)\b/i, nextSectionPattern);
+    // 5. Dynamic Projects Parsing (Extracts ANY project present in the resume automatically)
+    const projText = getSectionText(/(?:PROJECTS|KEY PROJECTS|ACADEMIC PROJECTS|PERSONAL PROJECTS)\b/i, nextSectionPattern);
     if (projText) {
-      const projCandle = projText.includes("Candlestick") || projText.includes("Predictor");
-      const projLegal = projText.includes("Legal") || projText.includes("Translation");
-      const projSmartSip = projText.includes("Smart-SIP") || projText.includes("Smart - SIP") || projText.includes("NAV") || projText.includes("Investment");
-      const projRag = projText.includes("Knowledge") || projText.includes("RAG");
+      const lines = projText.split('\n').map(l => l.trim()).filter(Boolean);
+      const parsedProjects = [];
 
-      const projects = [];
+      let currentProject = null;
+      let currentBullets = [];
 
-      if (projCandle) {
-        projects.push({
-          title: "Automated Candlestick Predictor (Financial Data Engine)",
-          description: "Engineered an automated data pipeline harvesting real-time market transactions, trades, and securities data from Angel One SmartAPI via WebSockets. Integrated automated diagnostic checks and data anomaly handling, processing 1,000+ daily market events with 99.9% pipeline uptime. Implemented a PyTorch LSTM model analyzing 60-interval sequential time-series patterns, exposing predictive metrics through RESTful endpoints.",
-          techStack: ["PyTorch", "FastAPI", "React", "REST APIs"],
-          github: "https://github.com/2411Aditya/Candlestick-predictor"
+      const isMetaLine = (l) => {
+        const lower = l.toLowerCase();
+        return lower === 'personal project' || lower === 'sponsored project' || 
+               lower === 'academic project' || lower === 'team project' || 
+               lower === 'client project' || /^(19|20)\d{2}(\s*[-–—]\s*(19|20)\d{2}|(\s*present)?)?$/i.test(l);
+      };
+
+      const isBulletLine = (l) => {
+        return /^([•\-*▪–—]|(\d+\.))\s*/.test(l);
+      };
+
+      const knownTechList = [
+        "Python", "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Express",
+        "FastAPI", "Flask", "Django", "PyTorch", "TensorFlow", "Keras", "Scikit-Learn",
+        "Machine Learning", "Deep Learning", "NLP", "LLM", "LLMs", "RAG", "LangChain",
+        "LlamaIndex", "SQL", "MySQL", "PostgreSQL", "SQLite", "MongoDB", "Redis",
+        "REST APIs", "REST API", "GraphQL", "WebSockets", "Docker", "Kubernetes",
+        "AWS", "GCP", "Azure", "GitHub Actions", "CI/CD", "Tailwind", "TailwindCSS",
+        "C++", "Java", "Go", "Rust", "PHP", "HTML", "CSS", "Vite", "Pandas", "NumPy"
+      ];
+
+      const extractTechFromLine = (textLine) => {
+        const foundTech = [];
+        knownTechList.forEach(tech => {
+          const regex = new RegExp(`\\b${tech.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+          if (regex.test(textLine)) {
+            foundTech.push(tech);
+          }
         });
+        return foundTech;
+      };
+
+      const finalizeCurrentProject = () => {
+        if (currentProject && currentProject.title) {
+          const fullDesc = currentBullets.map(b => normalizeExtractedText(b)).join(' ').trim();
+          currentProject.description = fullDesc || currentProject.description || "Developed software solution implementing optimized workflows and system architectures.";
+          
+          if (!currentProject.techStack || currentProject.techStack.length === 0) {
+            const detected = extractTechFromLine(fullDesc);
+            currentProject.techStack = detected.length > 0 ? detected.slice(0, 4) : ["Python", "Machine Learning", "REST APIs"];
+          }
+
+          if (!currentProject.github) {
+            const cleanTitleSlug = currentProject.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            currentProject.github = `https://github.com/2411Aditya/${cleanTitleSlug}`;
+          }
+
+          parsedProjects.push(currentProject);
+        }
+      };
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+
+        if (isBulletLine(line)) {
+          const cleanBullet = line.replace(/^([•\-*▪–—]|(\d+\.))\s*/, '');
+          currentBullets.push(cleanBullet);
+        } else if (isMetaLine(line)) {
+          // Skip meta tags like "Personal Project 2026"
+          continue;
+        } else {
+          // This line is a project title line!
+          // Finalize previous project if exists
+          finalizeCurrentProject();
+          currentBullets = [];
+
+          // Separate title and potential inline tech stack
+          let title = line;
+          let inlineTech = [];
+
+          // Check if line contains a separator or tech list
+          if (line.includes('|')) {
+            const parts = line.split('|');
+            title = parts[0].trim();
+            inlineTech = extractTechFromLine(parts.slice(1).join(' '));
+          } else if (line.includes('  ') || line.includes('\t')) {
+            // Tab or large space separation (e.g. "Candlestick Predictor    PyTorch, FastAPI")
+            const parts = line.split(/\s{2,}|\t/);
+            title = parts[0].trim();
+            inlineTech = extractTechFromLine(parts.slice(1).join(' '));
+          } else {
+            // Check if trailing words are known tech
+            const detectedTech = extractTechFromLine(line);
+            if (detectedTech.length > 0) {
+              inlineTech = detectedTech;
+            }
+          }
+
+          // Clean title (remove trailing commas, colons, or years)
+          title = normalizeExtractedText(title.replace(/\s+(19|20)\d{2}$/, '').replace(/[:|,]+$/, '').trim());
+
+          currentProject = {
+            title: title || `Project ${parsedProjects.length + 1}`,
+            description: "",
+            techStack: inlineTech.length > 0 ? inlineTech : [],
+            github: ""
+          };
+        }
       }
 
-      if (projLegal) {
-        projects.push({
-          title: "AI-Powered Legal Document Translation System",
-          description: "Fine-tuned the Sarvam LLM locally on legal corpora to achieve high accuracy in specialized domain terminology and document interpretation. Built REST API endpoints for document ingestion and validated structured JSON responses across 150+ legal records with 98% formatting accuracy. Developed parsing scripts using PyMuPDF to extract, clean, and validate intricate document schemas, maintaining strict structural compliance.",
-          techStack: ["Python", "Flask", "REST APIs", "NLP"],
-          github: "https://github.com/Akshada2411/AI-Powered-legal-translator"
-        });
-      }
+      // Finalize the last project in loop
+      finalizeCurrentProject();
 
-      if (projSmartSip) {
-        projects.push({
-          title: "Smart-SIP (Automated Investment & NAV Prediction Pipeline)",
-          description: "Engineered an automated mutual fund data pipeline fetching live and historical Net Asset Value (NAV) records into structured database tables. Developed a predictive machine learning engine with automated retraining schedules to optimize SIP timing based on time-series trend features. Built an automated alerting notification system to trigger investment signals and flag transaction schedule anomalies.",
-          techStack: ["Python", "SQLite", "Machine Learning"],
-          github: "https://github.com/2411Aditya/Smart-SIP-Automated-Investment-Pipeline"
-        });
-      } else if (projRag) {
-        projects.push({
-          title: "Intelligent Knowledge Assistant (RAG Pipeline)",
-          description: "Built a Retrieval-Augmented Generation (RAG) system using LangChain and Vector Databases to perform semantic queries over private datasets. Integrated evaluation metrics to flag hallucinations and verify response relevance following secure AI engineering principles.",
-          techStack: ["LangChain", "Vector DB"],
-          github: "https://github.com/2411Aditya/Intelligent-Knowledge-Assistant-RAG"
-        });
-      }
-
-      if (projects.length > 0) {
-        base.projects = projects;
+      if (parsedProjects.length > 0) {
+        base.projects = parsedProjects;
       }
     }
 
