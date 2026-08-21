@@ -47,20 +47,7 @@ const Hero = () => {
           </h1>
         </motion.div>
 
-        {/* Badges/Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-[#e5e5e5] font-semibold"
-        >
-          {personalInfo.roles?.map((role, idx) => (
-            <span key={idx} className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#e50914]"></span>
-              {role}
-            </span>
-          ))}
-        </motion.div>
+
 
         {/* Description */}
         <motion.div
