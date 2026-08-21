@@ -317,17 +317,6 @@ const AdminPage = () => {
       let currentProject = null;
       let currentBullets = [];
 
-      const isMetaLine = (l) => {
-        const lower = l.toLowerCase();
-        return lower === 'personal project' || lower === 'sponsored project' || 
-               lower === 'academic project' || lower === 'team project' || 
-               lower === 'client project' || /^(19|20)\d{2}(\s*[-–—]\s*(19|20)\d{2}|(\s*present)?)?$/i.test(l);
-      };
-
-      const isBulletLine = (l) => {
-        return /^([•\-*▪–—]|(\d+\.))\s*/.test(l);
-      };
-
       const knownTechList = [
         "Python", "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Express",
         "FastAPI", "Flask", "Django", "PyTorch", "TensorFlow", "Keras", "Scikit-Learn",
@@ -335,28 +324,51 @@ const AdminPage = () => {
         "LlamaIndex", "SQL", "MySQL", "PostgreSQL", "SQLite", "MongoDB", "Redis",
         "REST APIs", "REST API", "GraphQL", "WebSockets", "Docker", "Kubernetes",
         "AWS", "GCP", "Azure", "GitHub Actions", "CI/CD", "Tailwind", "TailwindCSS",
-        "C++", "Java", "Go", "Rust", "PHP", "HTML", "CSS", "Vite", "Pandas", "NumPy"
+        "C++", "Java", "Go", "Rust", "PHP", "HTML", "CSS", "Vite", "Pandas", "NumPy",
+        "Postman", "Render", "Heroku", "Vercel", "Firebase", "Supabase", "PySpark",
+        "Hugging Face", "OpenAI", "Gemini", "Anthropic", "Streamlit", "Gradio", "FastHTML",
+        "Power BI", "Tableau", "Looker Studio", "LSTM", "BERT", "GPT", "Transformer"
       ];
 
       const extractTechFromLine = (textLine) => {
         const foundTech = [];
         knownTechList.forEach(tech => {
           const regex = new RegExp(`\\b${tech.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
-          if (regex.test(textLine)) {
-            foundTech.push(tech);
-          }
+          if (regex.test(textLine)) foundTech.push(tech);
         });
         return foundTech;
+      };
+
+      // A line is a tech-stack line if it's short, comma/dot-separated, and mostly tech keywords
+      const isTechStackLine = (l) => {
+        // Strip commas, bullets, dots and check if remaining tokens are all known tech
+        const tokens = l.split(/[,•·\|]+/).map(t => t.trim()).filter(Boolean);
+        if (tokens.length === 0) return false;
+        const techHits = tokens.filter(t => extractTechFromLine(t).length > 0);
+        // Treat as tech stack if >60% of tokens are known tech keywords AND line is short
+        return techHits.length / tokens.length >= 0.6 && l.length < 120;
+      };
+
+      const isMetaLine = (l) => {
+        const lower = l.toLowerCase();
+        return lower === 'personal project' || lower === 'sponsored project' ||
+               lower === 'academic project' || lower === 'team project' ||
+               lower === 'client project' || /^(19|20)\d{2}(\s*[-–—]\s*(19|20)\d{2}|(\s*present)?)?$/i.test(l) ||
+               /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s*\d{4}/i.test(l);
+      };
+
+      const isBulletLine = (l) => {
+        return /^([•\-*▪–—]|(\d+\.))\s+/.test(l);
       };
 
       const finalizeCurrentProject = () => {
         if (currentProject && currentProject.title) {
           const fullDesc = currentBullets.map(b => normalizeExtractedText(b)).join(' ').trim();
-          currentProject.description = fullDesc || currentProject.description || "Developed software solution implementing optimized workflows and system architectures.";
-          
+          currentProject.description = fullDesc || "Developed software solution implementing optimized workflows and system architectures.";
+
           if (!currentProject.techStack || currentProject.techStack.length === 0) {
             const detected = extractTechFromLine(fullDesc);
-            currentProject.techStack = detected.length > 0 ? detected.slice(0, 4) : ["Python", "Machine Learning", "REST APIs"];
+            currentProject.techStack = detected.length > 0 ? detected.slice(0, 5) : ["Python", "Machine Learning"];
           }
 
           if (!currentProject.github) {
@@ -372,52 +384,52 @@ const AdminPage = () => {
         const line = lines[i];
 
         if (isBulletLine(line)) {
-          const cleanBullet = line.replace(/^([•\-*▪–—]|(\d+\.))\s*/, '');
+          // It's a bullet point → description of current project
+          const cleanBullet = line.replace(/^([•\-*▪–—]|(\d+\.))\s+/, '');
           currentBullets.push(cleanBullet);
+
         } else if (isMetaLine(line)) {
-          // Skip meta tags like "Personal Project 2026"
+          // Skip meta labels like "Personal Project" or year-only lines
           continue;
+
+        } else if (isTechStackLine(line) && currentProject) {
+          // It's a comma-separated tech stack line → attach to current project, do NOT create new
+          const tech = extractTechFromLine(line);
+          if (tech.length > 0) {
+            currentProject.techStack = [...new Set([...(currentProject.techStack || []), ...tech])].slice(0, 6);
+          }
+
         } else {
-          // This line is a project title line!
-          // Finalize previous project if exists
+          // It's a new project title → finalize previous and start new
           finalizeCurrentProject();
           currentBullets = [];
 
-          // Separate title and potential inline tech stack
+          // Handle "Title | Tech, Tech" or "Title   Tech, Tech" patterns
           let title = line;
           let inlineTech = [];
 
-          // Check if line contains a separator or tech list
           if (line.includes('|')) {
             const parts = line.split('|');
             title = parts[0].trim();
             inlineTech = extractTechFromLine(parts.slice(1).join(' '));
-          } else if (line.includes('  ') || line.includes('\t')) {
-            // Tab or large space separation (e.g. "Candlestick Predictor    PyTorch, FastAPI")
+          } else if (/\s{2,}|\t/.test(line)) {
             const parts = line.split(/\s{2,}|\t/);
             title = parts[0].trim();
             inlineTech = extractTechFromLine(parts.slice(1).join(' '));
-          } else {
-            // Check if trailing words are known tech
-            const detectedTech = extractTechFromLine(line);
-            if (detectedTech.length > 0) {
-              inlineTech = detectedTech;
-            }
           }
 
-          // Clean title (remove trailing commas, colons, or years)
           title = normalizeExtractedText(title.replace(/\s+(19|20)\d{2}$/, '').replace(/[:|,]+$/, '').trim());
 
           currentProject = {
             title: title || `Project ${parsedProjects.length + 1}`,
             description: "",
-            techStack: inlineTech.length > 0 ? inlineTech : [],
+            techStack: inlineTech,
             github: ""
           };
         }
       }
 
-      // Finalize the last project in loop
+      // Finalize the last project
       finalizeCurrentProject();
 
       if (parsedProjects.length > 0) {
