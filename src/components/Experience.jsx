@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
+import { cleanText } from '../utils/textCleaner';
 
 const Experience = () => {
   const { currentPortfolio } = usePortfolio();
@@ -43,7 +44,7 @@ const Experience = () => {
                   {exp.highlights?.map((item, i) => (
                     <li key={i} className="flex items-start gap-2.5 sm:gap-3">
                       <span className="mt-2 w-1.5 h-1.5 bg-[#e50914] rounded-full flex-shrink-0"></span> 
-                      <span><strong>{item.label}</strong> {item.text}</span>
+                      <span><strong>{cleanText(item.label)}</strong> {cleanText(item.text)}</span>
                     </li>
                   ))}
                 </ul>

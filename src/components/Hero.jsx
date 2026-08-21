@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
+import { cleanText } from '../utils/textCleaner';
 
 const Hero = () => {
   const [theme, setTheme] = useState('dark');
@@ -47,8 +48,6 @@ const Hero = () => {
           </h1>
         </motion.div>
 
-
-
         {/* Description */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -57,7 +56,7 @@ const Hero = () => {
           className="max-w-2xl"
         >
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-[#d4d4d4] leading-relaxed font-sans font-medium">
-            {personalInfo.bio}
+            {cleanText(personalInfo.bio)}
           </p>
         </motion.div>
 

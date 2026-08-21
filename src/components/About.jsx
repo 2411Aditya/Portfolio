@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
+import { cleanText } from '../utils/textCleaner';
 
 const About = () => {
   const { currentPortfolio } = usePortfolio();
@@ -27,7 +28,7 @@ const About = () => {
           className="col-span-1 md:col-span-7 space-y-4 sm:space-y-6 text-[#a3a3a3] text-sm sm:text-base md:text-lg leading-relaxed font-sans"
         >
           {about.paragraphs?.map((para, i) => (
-            <p key={i}>{para}</p>
+            <p key={i}>{cleanText(para)}</p>
           ))}
         </motion.div>
 
